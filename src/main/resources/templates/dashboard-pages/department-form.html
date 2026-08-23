@@ -1,0 +1,75 @@
+<style>
+    .dept-wrapper{
+     max-width:600px;
+     margin:30px auto;
+    }
+
+    .dept-card{
+     background:#fff;
+     border-radius:12px;
+     padding:25px 30px;
+     box-shadow:0 4px 15px rgba(0,0,0,.08);
+    }
+
+    .dept-title{
+     font-size:20px;
+     font-weight:600;
+     margin-bottom:20px;
+     border-bottom:1px solid #e5e7eb;
+     padding-bottom:10px;
+    }
+
+    .form-control{
+     height:44px;
+     border-radius:6px;
+    }
+
+    textarea.form-control{
+     height:90px;
+     resize:none;
+    }
+
+    .form-label{
+     font-weight:500;
+     margin-bottom:5px;
+    }
+
+    .btn-area{
+     margin-top:20px;
+     text-align:right;
+    }
+
+    .btn-area .btn{
+     min-width:100px;
+    }
+</style>
+
+<div class="page-wrapper">
+    <div class="card p-4">
+        <h4>Create Department</h4>
+        <form th:action="@{/departments/save}" method="post">
+        <div class="mb-3">
+                <input class="form-control" name="departmentCode" placeholder="Department Code" required autocomplete="off">
+            </div>
+            <div class="mb-3">
+                <input class="form-control" name="departmentName" placeholder="Department Name" required autocomplete="off">
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" name="description" placeholder="Description" autocomplete="off"></textarea>
+            </div>
+            <div class="btn-area">
+                <button class="btn btn-primary">Save</button>
+                <a th:href="@{/departments}"
+                   class="btn btn-secondary px-4">
+                    Back
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function loadDepartments(){
+        $("#main-content").load("/dashboard/departments");
+    }
+</script>

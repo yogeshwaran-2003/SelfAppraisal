@@ -1,0 +1,100 @@
+<style>
+    .edit-wrapper{
+        max-width:720px;
+        margin:30px auto;
+    }
+
+    .edit-card{
+        background:#ffffff;
+        border-radius:12px;
+        box-shadow:0 8px 25px rgba(0,0,0,.06);
+        padding:30px 35px;
+    }
+
+    .edit-title{
+        font-size:20px;
+        font-weight:600;
+        margin-bottom:20px;
+        padding-bottom:12px;
+        border-bottom:1px solid #e5e7eb;
+        color:#0f172a;
+    }
+
+    .form-label{
+        font-weight:600;
+        color:#334155;
+    }
+
+    .form-control{
+        border-radius:8px;
+        padding:8px 12px;
+    }
+
+    .form-control:focus{
+        box-shadow:none;
+        border-color:#2563eb;
+    }
+
+    .action-btns{
+        margin-top:25px;
+        text-align:right;
+    }
+</style>
+
+<div class="edit-wrapper">
+    <div class="edit-card">
+        <div class="edit-title">Edit Department</div>
+
+        <form th:action="@{/departments/update}" method="post">
+
+        <input type="hidden" name="departmentId"
+                   th:value="${department.departmentId}"/>
+
+            <div class="mb-3">
+                <label class="form-label">Department Code</label>
+                <input class="form-control"
+                       name="departmentCode"
+                       th:value="${department.departmentCode}"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Department Name</label>
+                <input class="form-control"
+                       name="departmentName"
+                       th:value="${department.departmentName}"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control"
+                          name="description"
+                          rows="3"
+                          th:text="${department.description}">
+                </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Status</label>
+                <span class="badge"
+                      th:classappend="${department.active} ? 'bg-success' : 'bg-danger'"
+                      th:text="${department.active} ? 'ACTIVE' : 'INACTIVE'">
+                </span>
+            </div>
+
+            <div class="action-btns">
+                <button type="submit" class="btn btn-primary px-4">
+                    Update
+                </button>
+
+                <a th:href="@{/departments}"
+                   class="btn btn-secondary px-4">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>

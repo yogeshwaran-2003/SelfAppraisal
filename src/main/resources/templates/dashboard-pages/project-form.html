@@ -1,0 +1,337 @@
+<!--<style>-->
+
+<!--    .page-wrapper{-->
+<!--     max-width:800px;-->
+<!--     margin:30px auto;-->
+<!--    }-->
+
+<!--    .card{-->
+<!--     border-radius:14px;-->
+<!--     padding:30px 35px;-->
+<!--     box-shadow:0 8px 25px rgba(0,0,0,.08);-->
+<!--     background:#ffffff;-->
+<!--    }-->
+
+<!--    .form-label{-->
+<!--     font-weight:600;-->
+<!--     margin-bottom:6px;-->
+<!--    }-->
+
+<!--    .form-control,-->
+<!--    .form-select{-->
+<!--     height:44px;-->
+<!--     border-radius:8px;-->
+<!--     border:1px solid #dcdcdc;-->
+<!--    }-->
+
+<!--    .form-control:focus,-->
+<!--    .form-select:focus{-->
+<!--     border-color:#0d6efd;-->
+<!--     box-shadow:0 0 0 0.15rem rgba(13,110,253,.15);-->
+<!--    }-->
+
+<!--    .btn-primary{-->
+<!--     padding:8px 20px;-->
+<!--     border-radius:8px;-->
+<!--    }-->
+
+<!--    .btn-secondary{-->
+<!--     padding:8px 20px;-->
+<!--     border-radius:8px;-->
+<!--    }-->
+
+<!--    .section-title{-->
+<!--     font-weight:600;-->
+<!--     margin-bottom:20px;-->
+<!--     border-bottom:1px solid #eee;-->
+<!--     padding-bottom:10px;-->
+<!--    }-->
+
+<!--</style>-->
+
+
+<!--<div class="page-wrapper">-->
+
+<!--    <div class="card">-->
+
+<!--        <h4 class="section-title">Create Project</h4>-->
+
+<!--        <form th:action="@{/projects/save}" method="post">-->
+
+
+<!--            <div class="mb-3">-->
+<!--                <label class="form-label">Project Name</label>-->
+<!--                <input type="text"-->
+<!--                       name="projectName"-->
+<!--                       class="form-control"-->
+<!--                       required>-->
+<!--            </div>-->
+
+
+<!--            <div class="mb-3">-->
+<!--                <label class="form-label">Client Name</label>-->
+<!--                <input type="text"-->
+<!--                       name="clientName"-->
+<!--                       class="form-control"-->
+<!--                       required>-->
+<!--            </div>-->
+
+
+<!--            <div class="mb-3">-->
+<!--                <label class="form-label">Manager</label>-->
+
+<!--                <select name="manager.employeeId"-->
+<!--                        class="form-select">-->
+
+<!--                    <option value="">Select Manager</option>-->
+
+<!--                    <option th:each="e : ${employees}"-->
+<!--                            th:value="${e.employeeId}"-->
+<!--                            th:text="${e.firstName + ' ' + e.lastName}">-->
+<!--                    </option>-->
+
+<!--                </select>-->
+
+<!--            </div>-->
+
+
+<!--            <div class="mb-3">-->
+<!--                <label class="form-label">Status</label>-->
+
+<!--                <select name="status" class="form-select">-->
+
+<!--                    <option value="ACTIVE">ACTIVE</option>-->
+
+<!--                    <option value="COMPLETED">COMPLETED</option>-->
+
+<!--                    <option value="ON HOLD">ON HOLD</option>-->
+
+<!--                </select>-->
+
+<!--            </div>-->
+
+
+<!--            <div class="d-flex justify-content-between mt-4">-->
+
+<!--                <a href="/projects"-->
+<!--                   class="btn btn-secondary">-->
+<!--                    Cancel-->
+<!--                </a>-->
+
+<!--                <button type="submit"-->
+<!--                        class="btn btn-primary">-->
+<!--                    Save Project-->
+<!--                </button>-->
+
+<!--            </div>-->
+
+<!--        </form>-->
+
+<!--    </div>-->
+
+<!--</div>-->
+
+<style>
+
+    .page-wrapper{
+        max-width:850px;
+        margin:30px auto;
+    }
+
+    .card{
+        border-radius:14px;
+        padding:30px 35px;
+        box-shadow:0 8px 25px rgba(0,0,0,.08);
+        background:#ffffff;
+    }
+
+    .section-title{
+        font-weight:600;
+        margin-bottom:20px;
+        border-bottom:1px solid #eee;
+        padding-bottom:10px;
+    }
+
+    .form-label{
+        font-weight:600;
+        margin-bottom:6px;
+    }
+
+    .form-control,
+    .form-select{
+        height:44px;
+        border-radius:8px;
+        border:1px solid #dcdcdc;
+    }
+
+    .form-select[multiple]{
+        height:auto;
+        min-height:120px;
+    }
+
+    .form-control:focus,
+    .form-select:focus{
+        border-color:#0d6efd;
+        box-shadow:0 0 0 0.15rem rgba(13,110,253,.15);
+    }
+
+    .btn-primary{
+        padding:8px 20px;
+        border-radius:8px;
+        font-weight:500;
+    }
+
+    .btn-secondary{
+        padding:8px 20px;
+        border-radius:8px;
+        font-weight:500;
+    }
+
+</style>
+
+
+<div class="page-wrapper">
+
+    <div class="card">
+
+        <h4 class="section-title">Create Project</h4>
+
+        <form th:action="@{/projects/save}" method="post">
+
+
+            <!-- PROJECT NAME -->
+
+            <div class="mb-3">
+                <label class="form-label">Project Name</label>
+
+                <input type="text"
+                       name="projectName"
+                       class="form-control"
+                       placeholder="Enter project name"
+                       required>
+
+            </div>
+
+
+            <!-- CLIENT NAME -->
+
+            <div class="mb-3">
+                <label class="form-label">Client Name</label>
+
+                <input type="text"
+                       name="clientName"
+                       class="form-control"
+                       placeholder="Enter client name"
+                       required>
+
+            </div>
+
+
+            <!-- START DATE -->
+
+            <div class="mb-3">
+                <label class="form-label">Start Date</label>
+
+                <input type="date"
+                       name="startDate"
+                       class="form-control">
+
+            </div>
+
+
+            <!-- END DATE -->
+
+            <div class="mb-3">
+                <label class="form-label">End Date</label>
+
+                <input type="date"
+                       name="endDate"
+                       class="form-control">
+
+            </div>
+
+
+            <!-- PROJECT MANAGER -->
+
+            <div class="mb-3">
+                <label class="form-label">Project Manager</label>
+
+                <select name="manager.employeeId"
+                        class="form-select">
+
+                    <option value="">Select Manager</option>
+
+                    <option th:each="e : ${employees}"
+                            th:value="${e.employeeId}"
+                            th:text="${e.firstName + ' ' + e.lastName}">
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ASSIGN EMPLOYEES -->
+
+            <div class="mb-3">
+                <label class="form-label">Assign Employees</label>
+
+                <select name="employeeIds"
+                        multiple
+                        class="form-select">
+
+                    <option th:each="e : ${employees}"
+                            th:value="${e.employeeId}"
+                            th:text="${e.firstName + ' ' + e.lastName}">
+                    </option>
+
+                </select>
+
+                <small class="text-muted">
+                    Hold CTRL to select multiple employees
+                </small>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="mb-3">
+                <label class="form-label">Project Status</label>
+
+                <select name="status"
+                        class="form-select">
+
+                    <option value="ACTIVE">ACTIVE</option>
+
+                    <option value="COMPLETED">COMPLETED</option>
+
+                    <option value="ON HOLD">ON HOLD</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="d-flex justify-content-between mt-4">
+
+                <a th:href="@{/projects}"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Save Project
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,250 @@
+<style>
+    .emp-view-wrapper{
+        max-width:900px;
+        margin:30px auto;
+    }
+
+    .emp-view-card{
+        background:#ffffff;
+        border-radius:12px;
+        box-shadow:0 8px 25px rgba(0,0,0,.06);
+        padding:30px 35px;
+    }
+
+    .emp-view-title{
+        font-size:20px;
+        font-weight:600;
+        margin-bottom:20px;
+        padding-bottom:12px;
+        border-bottom:1px solid #e5e7eb;
+    }
+
+    .section-title{
+        font-size:16px;
+        font-weight:600;
+        margin-top:25px;
+        margin-bottom:10px;
+        color:#334155;
+    }
+
+    .emp-row{
+        display:grid;
+        grid-template-columns:220px 1fr;
+        gap:15px;
+        padding:6px 0;
+    }
+
+    .emp-label{
+        font-weight:600;
+        color:#475569;
+    }
+
+    .emp-value{
+        color:#0f172a;
+    }
+
+    .divider{
+        margin:20px 0;
+        border-top:1px dashed #e5e7eb;
+    }
+
+    .back-btn{
+        margin-top:25px;
+        text-align:right;
+    }
+</style>
+
+<div class="emp-view-wrapper">
+
+    <div class="emp-view-card">
+
+        <div class="emp-view-title">Employee Details</div>
+
+        <!-- PERSONAL INFORMATION -->
+
+        <div class="section-title">Personal Information</div>
+
+        <div class="emp-row">
+            <div class="emp-label">Employee Code</div>
+            <div class="emp-value" th:text="${employee.employeeCode}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Name</div>
+            <div class="emp-value"
+                 th:text="${employee.firstName + ' ' + employee.lastName}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Gender</div>
+            <div class="emp-value" th:text="${employee.gender}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">DOB</div>
+            <div class="emp-value" th:text="${employee.dob}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Mobile</div>
+            <div class="emp-value" th:text="${employee.mobileNo}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Email</div>
+            <div class="emp-value" th:text="${employee.email}"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- WORK DETAILS -->
+
+        <div class="section-title">Work Details</div>
+
+        <div class="emp-row">
+            <div class="emp-label">Department</div>
+            <div class="emp-value"
+                 th:text="${employee.department != null ?
+              employee.department.departmentName : '-'}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Designation</div>
+            <div class="emp-value" th:text="${employee.designation}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Working Type</div>
+            <div class="emp-value" th:text="${employee.workingType}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Joining Date</div>
+            <div class="emp-value" th:text="${employee.joiningDate}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Location</div>
+            <div class="emp-value" th:text="${employee.location}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Reporting Manager</div>
+            <div class="emp-value"
+                 th:text="${employee.reportingTo != null ?
+              employee.reportingTo.firstName + ' ' +
+              employee.reportingTo.lastName : '-'}"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ATTENDANCE -->
+
+        <div class="section-title">Attendance Details</div>
+
+        <div class="emp-row">
+            <div class="emp-label">Shift</div>
+            <div class="emp-value" th:text="${employee.shift}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Office Time</div>
+            <div class="emp-value"
+                 th:text="${employee.officeStartTime + ' - ' + employee.officeEndTime}">
+            </div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Attendance Required</div>
+            <div class="emp-value"
+                 th:text="${employee.attendanceRequired == true ? 'Yes' : 'No'}"></div>
+        </div>
+
+        <div class="divider"></div>
+
+
+        <!-- STATUS -->
+
+        <div class="section-title">Status</div>
+
+        <div class="emp-row">
+            <div class="emp-label">Active</div>
+            <div class="emp-value"
+                 th:text="${employee.isActive ? 'Active' : 'Inactive'}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Resignation</div>
+            <div class="emp-value"
+                 th:text="${employee.resignation ? 'Yes' : 'No'}"></div>
+        </div>
+
+        <div class="emp-row"
+             th:if="${employee.resignation}">
+
+            <div class="emp-label">Resignation Type</div>
+            <div class="emp-value" th:text="${employee.resignationType}"></div>
+
+        </div>
+
+        <div class="divider"></div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="section-title">Address</div>
+
+        <div class="emp-row">
+            <div class="emp-label">Address</div>
+            <div class="emp-value" th:text="${employee.address}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">City</div>
+            <div class="emp-value" th:text="${employee.city}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Country</div>
+            <div class="emp-value" th:text="${employee.country}"></div>
+        </div>
+
+        <div class="divider"></div>
+
+
+        <!-- AUDIT -->
+
+        <div class="section-title">Audit Information</div>
+
+        <div class="emp-row">
+            <div class="emp-label">Created By</div>
+            <div class="emp-value" th:text="${employee.createdBy}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Created Date</div>
+            <div class="emp-value" th:text="${employee.createdDate}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Updated By</div>
+            <div class="emp-value" th:text="${employee.updatedBy}"></div>
+        </div>
+
+        <div class="emp-row">
+            <div class="emp-label">Updated Date</div>
+            <div class="emp-value" th:text="${employee.updatedDate}"></div>
+        </div>
+
+        <div class="back-btn">
+
+            <a th:href="@{/employees}"
+               class="btn btn-secondary px-4">
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

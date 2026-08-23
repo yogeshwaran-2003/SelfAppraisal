@@ -1,0 +1,140 @@
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    .card{
+        border-radius:10px;
+        box-shadow:0 2px 10px rgba(0,0,0,.08);
+    }
+
+    .form-label{
+        font-weight:500;
+    }
+
+    .required{
+        color:red;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h4>Edit User</h4>
+
+    <button class="btn btn-secondary"
+            onclick="window.location.href='/users'">
+
+        Back
+
+    </button>
+
+</div>
+
+<div class="card p-4">
+
+    <form th:action="@{/users/update}"
+          th:object="${user}"
+          method="post">
+
+        <input type="hidden" th:field="*{userId}">
+
+        <!-- Username -->
+        <div class="mb-3">
+
+            <label class="form-label">
+                Username <span class="required">*</span>
+            </label>
+
+            <input type="text"
+                   th:field="*{username}"
+                   class="form-control"
+                   required>
+
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+
+            <label class="form-label">
+                Password
+            </label>
+
+            <input type="password"
+                   name="password"
+                   class="form-control">
+
+            <small class="text-muted">
+                Leave blank to keep existing password
+            </small>
+
+        </div>
+
+        <!-- Role -->
+        <div class="mb-3">
+
+            <label class="form-label">
+                Role <span class="required">*</span>
+            </label>
+
+            <select th:field="*{role.roleId}"
+                    class="form-select"
+                    required>
+
+                <option th:each="r : ${roles}"
+                        th:value="${r.roleId}"
+                        th:text="${r.roleName}">
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Status -->
+        <div class="mb-3 form-check">
+
+            <input type="checkbox"
+                   id="statusCheckbox"
+                   class="form-check-input"
+                   th:checked="${user.accountStatus == 'ACTIVE'}">
+
+            <label class="form-check-label">
+                Active
+            </label>
+
+        </div>
+
+        <input type="hidden"
+               name="accountStatus"
+               id="accountStatusField"
+               th:value="${user.accountStatus}">
+
+        <!-- Buttons -->
+        <div class="mt-4">
+
+            <button type="submit"
+                    class="btn btn-primary">
+
+                <i class="fa-solid fa-save"></i> Update
+
+            </button>
+
+            <button type="button"
+                    class="btn btn-secondary"
+                    onclick="window.location.href='/users'">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+<script>
+    document.getElementById("statusCheckbox").addEventListener("change", function(){
+
+    document.getElementById("accountStatusField").value =
+    this.checked ? "ACTIVE" : "INACTIVE";
+
+    });
+</script>

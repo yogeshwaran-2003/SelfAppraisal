@@ -1,0 +1,94 @@
+<style>
+
+    .attendance-wrapper{
+        max-width:1100px;
+        margin:20px auto;
+    }
+
+    .attendance-title{
+        font-size:22px;
+        font-weight:600;
+        margin-bottom:25px;
+        color:#1e293b;
+    }
+
+    .attendance-card{
+        border-radius:12px;
+        padding:25px;
+        background:#ffffff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+    .attendance-table th{
+        background:#0f172a;
+        color:white;
+    }
+
+</style>
+
+<div class="attendance-wrapper">
+
+    <div class="attendance-title">
+        Manager Attendance Entry
+    </div>
+
+    <div class="attendance-card">
+
+        <!-- DATE SELECT -->
+        <form method="get" th:action="@{/manager/attendance}" class="mb-4">
+            <input type="date" name="date"
+                   th:value="${selectedDate}"
+                   class="form-control w-auto d-inline-block">
+
+            <button type="submit" class="btn btn-primary btn-sm ms-2">
+                Load
+            </button>
+        </form>
+
+        <!-- TABLE -->
+        <form method="post" th:action="@{/manager/attendance/save}">
+
+            <input type="hidden" name="date"
+                   th:value="${selectedDate}"/>
+
+            <table class="table table-bordered attendance-table">
+
+                <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="emp : ${employees}">
+
+                    <td th:text="${emp.firstName + ' ' + emp.lastName}"></td>
+
+                    <td>
+                        <select class="form-select"
+                                th:name="${'emp_' + emp.employeeId}">
+
+                            <option th:each="s : ${statuses}"
+                                    th:value="${s}"
+                                    th:text="${s}"
+                                    th:selected="${existingMap[emp.employeeId] == s}">
+                            </option>
+
+                        </select>
+                    </td>
+
+                </tr>
+                </tbody>
+
+            </table>
+
+            <button type="submit" class="btn btn-success">
+                Save Attendance
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

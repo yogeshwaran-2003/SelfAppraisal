@@ -1,0 +1,210 @@
+<!-- DASHBOARD WIDGETS -->
+<style>
+    /* ================= DASHBOARD STAT CARDS ================= */
+
+.stat-card{
+    background:#ffffff;
+    border-radius:14px;
+    padding:22px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    transition:all .25s ease;
+    border:1px solid #f1f5f9;
+}
+
+/* Hover animation */
+
+.stat-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+
+/* Title */
+
+.stat-title{
+    font-size:13px;
+    font-weight:500;
+    color:#64748b;
+    margin-bottom:6px;
+}
+
+/* Number */
+
+.stat-number{
+    font-size:26px;
+    font-weight:600;
+    color:#0f172a;
+}
+
+/* Icon container */
+
+.stat-icon{
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    color:white;
+}
+
+/* Icon colors */
+
+.icon-blue{
+    background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.icon-green{
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+}
+
+.icon-purple{
+    background:linear-gradient(135deg,#8b5cf6,#7c3aed);
+}
+
+.icon-orange{
+    background:linear-gradient(135deg,#f97316,#ea580c);
+}
+
+
+/* ================= ACTIVITY CARDS ================= */
+
+.activity{
+    background:#ffffff;
+    border-radius:14px;
+    padding:22px;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    border:1px solid #f1f5f9;
+}
+
+/* Title */
+
+.activity h6{
+    font-weight:600;
+    color:#0f172a;
+    margin-bottom:16px;
+}
+
+/* Activity item */
+
+.activity-item{
+    font-size:14px;
+    padding:12px 0;
+    color:#334155;
+    border-bottom:1px solid #f1f5f9;
+}
+
+/* Remove last border */
+
+.activity-item:last-child{
+    border-bottom:none;
+}
+
+/* Hover effect */
+
+.activity-item:hover{
+    color:#2563eb;
+    cursor:pointer;
+}
+</style>
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div>
+                <div class="stat-title">Employees</div>
+                <div class="stat-number">40</div>
+            </div>
+            <div class="stat-icon icon-blue">
+                <i class="fa fa-users"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div>
+                <div class="stat-title">Projects</div>
+                <div class="stat-number">10</div>
+            </div>
+            <div class="stat-icon icon-green">
+                <i class="fa fa-briefcase"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div>
+                <div class="stat-title">Clients</div>
+                <div class="stat-number">8</div>
+            </div>
+            <div class="stat-icon icon-purple">
+                <i class="fa fa-handshake"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div>
+                <div class="stat-title">Revenue</div>
+                <div class="stat-number">₹45,000</div>
+            </div>
+            <div class="stat-icon icon-orange">
+                <i class="fa fa-chart-line"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="activity">
+            <h6 class="mb-3">Recent Activity</h6>
+
+            <div class="activity-item">
+                Employee John submitted appraisal
+            </div>
+
+            <div class="activity-item">
+                Project Alpha updated
+            </div>
+
+            <div class="activity-item">
+                Payroll processed for May
+            </div>
+
+            <div class="activity-item">
+                New employee added
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="activity">
+            <h6 class="mb-3">Upcoming Reviews</h6>
+
+            <div class="activity-item">
+                Employee performance review - Monday
+            </div>
+
+            <div class="activity-item">
+                Manager review meeting - Wednesday
+            </div>
+
+            <div class="activity-item">
+                HR evaluation session - Friday
+            </div>
+
+        </div>
+    </div>
+
+</div>

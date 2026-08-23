@@ -1,0 +1,380 @@
+<style>
+
+    .page-wrapper{
+        max-width:900px;
+        margin:30px auto;
+    }
+
+    .card{
+        border-radius:12px;
+        padding:30px 35px;
+        box-shadow:0 6px 20px rgba(0,0,0,.08);
+        background:#fff;
+    }
+
+    .form-group{
+        display:flex;
+        flex-direction:column;
+    }
+
+    .form-group label{
+        font-size:13px;
+        font-weight:600;
+        margin-bottom:5px;
+        color:#334155;
+    }
+
+    .form-control{
+        height:44px;
+        border-radius:6px;
+    }
+
+    textarea.form-control{
+        height:100px;
+    }
+
+    .section-title{
+        font-size:18px;
+        font-weight:600;
+        margin-top:25px;
+        margin-bottom:15px;
+        padding-bottom:6px;
+        border-bottom:1px solid #e5e7eb;
+        color:#0f172a;
+    }
+
+    .row{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:15px;
+    }
+
+    .full{
+        grid-column:1 / -1;
+    }
+
+    .checkbox-group{
+        display:flex;
+        gap:20px;
+        margin-top:10px;
+    }
+
+    .btn-area{
+        margin-top:25px;
+        text-align:right;
+    }
+
+    .btn-area .btn{
+        min-width:120px;
+    }
+</style>
+
+<div class="page-wrapper">
+    <div class="card">
+
+        <h4>Edit Employee</h4>
+
+        <form action="/employees/update" method="post">
+
+            <input type="hidden"
+                   name="employeeId"
+                   th:value="${employee.employeeId}">
+
+            <!-- PERSONAL INFORMATION -->
+            <div class="section-title">PERSONAL INFORMATION</div>
+            <div class="row">
+
+                <div class="form-group">
+                    <label>Employee Code</label>
+                    <input name="employeeCode"
+                           th:value="${employee.employeeCode}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input name="firstName"
+                           th:value="${employee.firstName}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input name="lastName"
+                           th:value="${employee.lastName}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select name="gender" class="form-control">
+                        <option value="">Select Gender</option>
+                        <option value="Male"
+                                th:selected="${employee.gender=='Male'}">Male</option>
+                        <option value="Female"
+                                th:selected="${employee.gender=='Female'}">Female</option>
+                        <option value="Other"
+                                th:selected="${employee.gender=='Other'}">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date"
+                           name="dob"
+                           th:value="${employee.dob}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input name="mobileNo"
+                           th:value="${employee.mobileNo}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input name="email"
+                           th:value="${employee.email}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Nationality</label>
+                    <input name="nationality"
+                           th:value="${employee.nationality}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>ID Type</label>
+                    <input name="idType"
+                           th:value="${employee.idType}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>ID Number</label>
+                    <input name="idNumber"
+                           th:value="${employee.idNumber}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Marital Status</label>
+                    <select name="maritalStatus" class="form-control">
+                        <option value="">Marital Status</option>
+                        <option value="Single"
+                                th:selected="${employee.maritalStatus=='Single'}">Un-Married</option>
+                        <option value="Married"
+                                th:selected="${employee.maritalStatus=='Married'}">Married</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <!-- WORK DETAILS -->
+            <div class="section-title">WORK DETAILS</div>
+            <div class="row">
+
+                <div class="form-group">
+                    <label>Department</label>
+                    <select name="department.departmentId" class="form-control">
+                        <option value="">Select Department</option>
+                        <option th:each="d:${departments}"
+                                th:value="${d.departmentId}"
+                                th:text="${d.departmentName}"
+                                th:selected="${employee.department != null and d.departmentId == employee.department.departmentId}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Designation</label>
+                    <input name="designation"
+                           th:value="${employee.designation}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Working Type</label>
+                    <select name="workingType" class="form-control">
+                        <option value="">Working Type</option>
+                        <option value="Full Time"
+                                th:selected="${employee.workingType=='Full Time'}">Full Time</option>
+                        <option value="Contract"
+                                th:selected="${employee.workingType=='Contract'}">Contract</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Joining Date</label>
+                    <input type="date"
+                           name="joiningDate"
+                           th:value="${employee.joiningDate}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+                    <input name="location"
+                           th:value="${employee.location}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Working Hours</label>
+                    <input name="workingHours"
+                           th:value="${employee.workingHours}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group full">
+                    <label>
+                        <input type="checkbox"
+                               name="isReportingManager"
+                               th:checked="${employee.isReportingManager}">
+                        This employee is a Reporting Manager
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Reporting To</label>
+                    <select name="reportingToId" class="form-control">
+                        <option value="">Reporting Manager</option>
+                        <option th:each="emp:${employees}"
+                                th:value="${emp.employeeId}"
+                                th:text="${emp.firstName + ' ' + emp.lastName}"
+                                th:selected="${employee.reportingTo != null and emp.employeeId == employee.reportingTo.employeeId}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label>Job Description</label>
+                    <textarea name="jobDescription"
+                              th:text="${employee.jobDescription}"
+                              class="form-control"></textarea>
+                </div>
+
+            </div>
+
+
+            <!-- ATTENDANCE DETAILS -->
+            <div class="section-title">ATTENDANCE DETAILS</div>
+            <div class="row">
+
+                <div class="form-group">
+                    <label>Shift</label>
+                    <select name="shift" class="form-control">
+                        <option value="">Select Shift</option>
+                        <option value="Morning"
+                                th:selected="${employee.shift=='Morning'}">Morning</option>
+                        <option value="Evening"
+                                th:selected="${employee.shift=='Evening'}">Evening</option>
+                        <option value="Night"
+                                th:selected="${employee.shift=='Night'}">Night</option>
+                        <option value="General"
+                                th:selected="${employee.shift=='General'}">General</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Office Start Time</label>
+                    <input type="time"
+                           name="officeStartTime"
+                           th:value="${employee.officeStartTime}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Office End Time</label>
+                    <input type="time"
+                           name="officeEndTime"
+                           th:value="${employee.officeEndTime}"
+                           class="form-control">
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+            <div class="section-title">STATUS</div>
+
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox"
+                           name="isActive"
+                           th:checked="${employee.isActive}">
+                    Active
+                </label>
+
+                <label>
+                    <input type="checkbox"
+                           name="probation"
+                           th:checked="${employee.probation}">
+                    Probation
+                </label>
+
+                <label>
+                    <input type="checkbox"
+                           name="resignation"
+                           th:checked="${employee.resignation}">
+                    Resigned
+                </label>
+            </div>
+
+
+            <!-- ADDRESS -->
+            <div class="section-title">ADDRESS</div>
+            <div class="row">
+
+                <div class="form-group full">
+                    <label>Address</label>
+                    <textarea name="address"
+                              th:text="${employee.address}"
+                              class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>City</label>
+                    <input name="city"
+                           th:value="${employee.city}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Country</label>
+                    <input name="country"
+                           th:value="${employee.country}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Postal Code</label>
+                    <input name="postalCode"
+                           th:value="${employee.postalCode}"
+                           class="form-control">
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+            <div class="btn-area">
+                <button class="btn btn-primary">
+                    Update Employee
+                </button>
+
+                <a href="/employees"
+                   class="btn btn-secondary">
+                    Back
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>

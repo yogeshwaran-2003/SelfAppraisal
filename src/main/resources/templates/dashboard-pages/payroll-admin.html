@@ -1,0 +1,113 @@
+<style>
+
+    .payroll-wrapper{
+        max-width:1100px;
+        margin:20px auto;
+    }
+
+    .payroll-title{
+        font-size:22px;
+        font-weight:600;
+        margin-bottom:25px;
+        color:#1e293b;
+    }
+
+    .payroll-card{
+        border-radius:12px;
+        padding:25px;
+        background:#ffffff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+</style>
+
+
+<div class="payroll-wrapper">
+
+    <div class="payroll-title">
+        Payroll Processing
+    </div>
+
+    <div class="payroll-card">
+
+        <form method="post"
+              th:action="@{/payroll/admin/generate}"
+              class="row g-3 mb-4">
+
+            <div class="col-md-4">
+
+                <input type="number"
+                       name="month"
+                       min="1"
+                       max="12"
+                       class="form-control"
+                       placeholder="Month">
+
+            </div>
+
+            <div class="col-md-4">
+
+                <input type="number"
+                       name="year"
+                       class="form-control"
+                       placeholder="Year">
+
+            </div>
+
+            <div class="col-md-4">
+
+                <button class="btn btn-primary w-100">
+                    Generate Payroll
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <table class="table table-bordered table-striped">
+
+            <thead>
+
+            <tr>
+                <th>Employee</th>
+                <th>Month</th>
+                <th>Year</th>
+                <th>Base Salary</th>
+                <th>Bonus</th>
+                <th>Deduction</th>
+                <th>Net Salary</th>
+                <th>Status</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="p : ${records}">
+
+                <td th:text="${p.employee.firstName}"></td>
+
+                <td th:text="${p.month}"></td>
+
+                <td th:text="${p.year}"></td>
+
+                <td th:text="${p.baseSalary}"></td>
+
+                <td th:text="${p.bonus}"></td>
+
+                <td th:text="${p.deduction}"></td>
+
+                <td th:text="${p.netSalary}"></td>
+
+                <td th:text="${p.status}"></td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

@@ -1,0 +1,332 @@
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+
+    .payslip-wrapper{
+        max-width:950px;
+        margin:20px auto;
+    }
+
+    /* Top toolbar */
+    .payslip-toolbar{
+        display:flex;
+        justify-content:flex-end;
+        margin-bottom:10px;
+    }
+
+    /* Download button */
+    .download-btn{
+        background:#16a34a;
+        color:white;
+        border:none;
+        padding:8px 16px;
+        border-radius:6px;
+        font-weight:500;
+    }
+
+    .download-btn:hover{
+        background:#15803d;
+    }
+
+    /* Card */
+    .payslip-card{
+        background:#fff;
+        border-radius:12px;
+        padding:25px;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+        margin-bottom:20px;
+    }
+
+    /* Company header */
+    .company-header{
+        text-align:center;
+    }
+
+    .company-header h3{
+        font-weight:600;
+        margin-bottom:10px;
+    }
+
+    /* Employee grid layout */
+    .employee-grid{
+        display:grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap:15px 40px;
+    }
+
+    .employee-item{
+        display:flex;
+        gap:8px;
+        font-size:14px;
+    }
+
+    .employee-label{
+        font-weight:600;
+        color:#374151;
+        min-width:130px;
+    }
+
+    /* Net pay section */
+
+    .netpay-box{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    .month-box{
+        color:#2563eb;
+    }
+
+    .month-box h3{
+        font-weight:700;
+        font-size:28px;
+    }
+
+    .netpay h1{
+        font-size:38px;
+        font-weight:700;
+    }
+
+    /* Salary rows */
+
+    .salary-row{
+        display:flex;
+        justify-content:space-between;
+        padding:10px 0;
+        border-bottom:1px solid #eee;
+    }
+
+    .salary-row:last-child{
+        border-bottom:none;
+    }
+
+</style>
+
+
+
+<div class="payslip-wrapper">
+
+    <!-- DOWNLOAD BUTTON OUTSIDE -->
+    <div class="payslip-toolbar">
+
+        <button class="download-btn"
+                onclick="downloadPayslip()">
+
+            <i class="fa-solid fa-download"></i>
+            Download PDF
+
+        </button>
+
+    </div>
+
+
+
+    <div id="payslipContent">
+
+
+        <!-- COMPANY DETAILS -->
+
+        <div class="payslip-card company-header">
+
+            <h3 th:text="${company.companyName}"></h3>
+
+            <div>
+                <b>Company Code:</b>
+                <span th:text="${company.companyCode}"></span>
+            </div>
+
+            <div>
+                <b>Sector:</b>
+                <span th:text="${company.sector}"></span>
+            </div>
+
+            <div>
+                <b>Country:</b>
+                <span th:text="${company.payrollCountry}"></span>
+            </div>
+
+        </div>
+
+
+
+        <!-- EMPLOYEE DETAILS -->
+
+        <div class="payslip-card">
+
+            <div class="employee-grid">
+
+                <div class="employee-item">
+                    <div class="employee-label">Employee</div>
+                    <div th:text="${payroll.employee.firstName + ' ' + payroll.employee.lastName}"></div>
+                </div>
+
+                <div class="employee-item">
+                    <div class="employee-label">Employee Code</div>
+                    <div th:text="${payroll.employee.employeeCode}"></div>
+                </div>
+
+                <div class="employee-item">
+                    <div class="employee-label">Department</div>
+                    <div th:text="${payroll.employee.department != null ? payroll.employee.department.departmentName : '-'}"></div>
+                </div>
+
+                <div class="employee-item">
+                    <div class="employee-label">Designation</div>
+                    <div th:text="${payroll.employee.designation}"></div>
+                </div>
+
+                <div class="employee-item">
+                    <div class="employee-label">Payslip Month</div>
+                    <div th:text="${T(java.time.Month).of(payroll.month).name()} + ' ' + ${payroll.year}"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- APPRAISAL DETAILS -->
+        <div class="payslip-card"
+             th:if="${payroll.appraisal != null}">
+
+            <h5 style="margin-bottom:15px;">
+                Performance Appraisal
+            </h5>
+
+            <div class="salary-row">
+                <div>Manager Rating</div>
+                <div>
+                    <span th:text="${payroll.appraisal.overallManagerRating}"></span>
+                    / 5
+                </div>
+            </div>
+
+            <div class="salary-row"
+                 th:with="
+         rating=${payroll.appraisal.overallManagerRating},
+         percent=${rating >=5 ? 20 :
+                   rating ==4 ? 10 :
+                   rating ==3 ? 5 : 0}
+         ">
+
+                <div>Increment Percentage</div>
+
+                <div th:text="${percent} + ' %'"></div>
+
+            </div>
+
+            <div class="salary-row">
+
+                <div>Increment Amount</div>
+
+                <div th:text="'₹ ' + ${#numbers.formatDecimal(payroll.bonus,1,'COMMA',2,'POINT')}"></div>
+
+            </div>
+
+            <div class="salary-row">
+
+                <div>Revised Basic Salary</div>
+
+                <div th:text="'₹ ' + ${#numbers.formatDecimal(payroll.baseSalary*0.40 + payroll.bonus,1,'COMMA',2,'POINT')}"></div>
+
+            </div>
+
+        </div>
+
+        <!-- NET PAY -->
+
+        <div class="payslip-card">
+
+            <div class="netpay-box">
+
+                <div class="month-box">
+
+                    <h3 th:text="${T(java.time.Month).of(payroll.month).name()}"></h3>
+                    <div th:text="${payroll.year}"></div>
+
+                </div>
+
+                <div class="netpay">
+
+                    <div>Net Pay</div>
+
+                    <h1 th:text="'₹ ' + ${#numbers.formatDecimal(payroll.netSalary,1,'COMMA',2,'POINT')}"></h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SALARY BREAKDOWN -->
+
+        <div class="payslip-card">
+
+            <h5 style="margin-bottom:15px;">
+                Other Earnings & Deductions
+            </h5>
+
+            <div th:with="
+basic=${payroll.baseSalary * 0.40+payroll.bonus},
+hra=${payroll.baseSalary * 0.20},
+da=${payroll.baseSalary * 0.10},
+medical=${payroll.baseSalary * 0.10},
+special=${payroll.baseSalary * 0.20}
+">
+
+                <div class="salary-row">
+                    <div>Basic Salary</div>
+                    <div th:text="'₹ ' + ${#numbers.formatDecimal(basic,1,'COMMA',2,'POINT')}"></div>
+                </div>
+
+                <div class="salary-row">
+                    <div>House Rent Allowance</div>
+                    <div th:text="'₹ ' + ${#numbers.formatDecimal(hra,1,'COMMA',2,'POINT')}"></div>
+                </div>
+
+                <div class="salary-row">
+                    <div>Dearness Allowance</div>
+                    <div th:text="'₹ ' + ${#numbers.formatDecimal(da,1,'COMMA',2,'POINT')}"></div>
+                </div>
+
+                <div class="salary-row">
+                    <div>Medical Allowance</div>
+                    <div th:text="'₹ ' + ${#numbers.formatDecimal(medical,1,'COMMA',2,'POINT')}"></div>
+                </div>
+
+                <div class="salary-row">
+                    <div>Special Allowance</div>
+                    <div th:text="'₹ ' + ${#numbers.formatDecimal(special,1,'COMMA',2,'POINT')}"></div>
+                </div>
+
+                <div class="salary-row">
+                    <div><b>Total Deduction</b></div>
+                    <div th:text="'₹ ' + ${#numbers.formatDecimal(payroll.deduction,1,'COMMA',2,'POINT')}"></div>
+                </div>
+
+                <div class="salary-row">
+                    <div><b>Net Salary</b></div>
+                    <div><b th:text="'₹ ' + ${#numbers.formatDecimal(payroll.netSalary,1,'COMMA',2,'POINT')}"></b></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function downloadPayslip(){
+    const element = document.getElementById("payslipContent");
+    html2pdf()
+    .from(element)
+    .save("payslip.pdf");
+    }
+</script>

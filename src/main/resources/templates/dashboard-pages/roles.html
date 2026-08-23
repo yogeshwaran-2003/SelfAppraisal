@@ -1,0 +1,206 @@
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    .card{
+        border-radius:10px;
+        box-shadow:0 2px 10px rgba(0,0,0,.08);
+    }
+
+    #roleTable{
+        border:1px solid #dee2e6;
+        border-radius:8px;
+        overflow:hidden;
+    }
+
+    #roleTable th{
+        background:#f1f5f9;
+        border-bottom:1px solid #dee2e6;
+    }
+
+    #roleTable td{
+        border-top:1px solid #dee2e6;
+        padding:12px 16px;
+        vertical-align: middle;
+    }
+
+    #roleTable th:nth-child(1){ width:120px; }
+    #roleTable th:nth-child(2){ width:220px; }
+    #roleTable th:nth-child(3){ width:320px; }
+    #roleTable th:nth-child(4){ width:220px; }
+
+    .dt-buttons{
+        margin-bottom:10px;
+    }
+</style>
+
+<div class="d-flex justify-content-between">
+
+    <h4>Roles</h4>
+
+    <button class="btn btn-primary mb-3"
+            onclick="window.location.href='/roles/create'">
+        Create
+    </button>
+
+</div>
+
+<div class="card p-3">
+
+    <table id="roleTable" class="table">
+
+        <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Role Name</th>
+
+            <th>Description</th>
+
+            <th>Status</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="r : ${roles}">
+
+            <!-- ID -->
+            <td th:text="${r.roleId}"></td>
+
+
+            <!-- Role Name -->
+            <td th:text="${r.roleName}"></td>
+
+
+            <!-- Description -->
+            <td th:text="${r.description != null ? r.description : '-'}"></td>
+
+
+            <!-- Status -->
+            <td>
+
+                <span th:text="${r.isActive} ? 'Active' : 'Inactive'"
+                      th:classappend="${r.isActive} ? 'text-success fw-semibold' : 'text-danger fw-semibold'">
+                </span>
+
+            </td>
+
+
+            <!-- Actions -->
+            <td>
+
+                <div class="d-flex gap-2">
+
+
+                    <!-- View -->
+                    <button class="btn btn-primary btn-sm"
+                            th:onclick="'window.location.href=\'/roles/view/' + ${r.roleId} + '\';'">
+                        <i class="fa-solid fa-eye"></i>
+
+                    </button>
+
+                    <!-- Edit -->
+                    <button class="btn btn-warning btn-sm"
+                            th:onclick="'window.location.href=\'/roles/edit/' + ${r.roleId} + '\';'">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <!-- Toggle -->
+                    <button th:if="${r.isActive}"
+                            class="btn btn-danger btn-sm"
+                            th:onclick="'window.location.href=\'/roles/toggle/' + ${r.roleId} + '\';'"
+                            title="Deactivate">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </button>
+
+                    <button th:if="${!r.isActive}"
+                            class="btn btn-success btn-sm"
+                            th:onclick="'window.location.href=\'/roles/toggle/' + ${r.roleId} + '\';'"
+                            title="Activate">
+
+                        <i class="fa-solid fa-check"></i>
+
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script>
+
+<!--    $(function(){-->
+
+<!--        $('#roleTable').DataTable();-->
+
+<!--    });-->
+
+    $(function () {
+
+    $('#roleTable').DataTable({
+
+        dom: '<"d-flex justify-content-end mb-2"B>frtip',
+
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel"></i> Export Excel',
+                className: 'btn btn-success btn-sm',
+                title: 'Roles_List',
+                exportOptions: {
+                    columns: [0,1,2,3] // ignore Actions column
+                }
+            }
+        ]
+
+    });
+
+});
+
+    function loadRoleCreate(){
+
+        window.location.href = "/roles/create";
+
+    }
+
+    function editRole(id){
+
+        window.location.href = "/roles/edit/" + id;
+
+    }
+
+</script>
+
+<script>
+
+    function toggleRole(id){
+
+        if(confirm("Change role status?")){
+
+            window.location.href = "/roles/toggle/" + id;
+
+        }
+
+    }
+
+</script>

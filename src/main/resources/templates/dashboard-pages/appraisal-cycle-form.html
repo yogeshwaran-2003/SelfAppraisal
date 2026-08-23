@@ -1,0 +1,209 @@
+<!--<style>-->
+
+<!--    .page-wrapper{-->
+<!--        max-width:700px;-->
+<!--        margin:20px auto;-->
+<!--    }-->
+
+<!--    .card{-->
+<!--        border-radius:12px;-->
+<!--        padding:30px;-->
+<!--        background:#fff;-->
+<!--        box-shadow:0 4px 14px rgba(0,0,0,.08);-->
+<!--    }-->
+
+<!--    .form-control{-->
+<!--        height:42px;-->
+<!--        margin-bottom:15px;-->
+<!--    }-->
+
+<!--    .btn-area{-->
+<!--        text-align:right;-->
+<!--        margin-top:20px;-->
+<!--    }-->
+
+<!--</style>-->
+
+<!--<div class="page-wrapper">-->
+
+<!--    <div class="card">-->
+
+<!--        <h5 th:text="${cycle.id == null ? 'Create Appraisal Cycle' : 'Edit Appraisal Cycle'}"></h5>-->
+
+<!--        <form th:action="${cycle.id == null} ?-->
+<!--                         @{/appraisal/admin/cycle/save} :-->
+<!--                         @{/appraisal/admin/cycle/update}"-->
+<!--              method="post">-->
+<!--&lt;!&ndash;        <form th:action="@{/appraisal/admin/cycle/save}"&ndash;&gt;-->
+<!--&lt;!&ndash;              method="post">&ndash;&gt;-->
+
+<!--            <input type="hidden" name="id"-->
+<!--                   th:value="${cycle.id}">-->
+
+<!--            <input type="text"-->
+<!--                   name="title"-->
+<!--                   class="form-control"-->
+<!--                   placeholder="Cycle Name"-->
+<!--                   th:value="${cycle.title}"-->
+<!--                   required>-->
+
+<!--            <input type="date"-->
+<!--                   name="startDate"-->
+<!--                   class="form-control"-->
+<!--                   th:value="${cycle.startDate}"-->
+<!--                   required>-->
+
+<!--            <input type="date"-->
+<!--                   name="endDate"-->
+<!--                   class="form-control"-->
+<!--                   th:value="${cycle.endDate}"-->
+<!--                   required>-->
+
+<!--            <select name="status"-->
+<!--                    class="form-control">-->
+
+<!--                <option value="DRAFT"-->
+<!--                        th:selected="${cycle.status == 'DRAFT'}">-->
+<!--                    Draft-->
+<!--                </option>-->
+
+<!--                <option value="OPEN"-->
+<!--                        th:selected="${cycle.status == 'OPEN'}">-->
+<!--                    Open-->
+<!--                </option>-->
+
+<!--                <option value="CLOSED"-->
+<!--                        th:selected="${cycle.status == 'CLOSED'}">-->
+<!--                    Closed-->
+<!--                </option>-->
+
+<!--            </select>-->
+
+<!--            <div class="btn-area">-->
+<!--                <button class="btn btn-primary btn-sm">-->
+<!--                    Save-->
+<!--                </button>-->
+
+<!--                <a th:href="@{/appraisal/admin/cycles}"-->
+<!--                   class="btn btn-secondary btn-sm">-->
+<!--                    Back-->
+<!--                </a>-->
+<!--            </div>-->
+
+<!--        </form>-->
+
+<!--    </div>-->
+
+<!--</div>-->
+
+<style>
+
+    .page-wrapper{
+        max-width:700px;
+        margin:20px auto;
+    }
+
+    .card{
+        border-radius:12px;
+        padding:30px;
+        background:#fff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+    .form-label{
+        font-weight:600;
+        margin-bottom:5px;
+        display:block;
+    }
+
+    .form-control{
+        height:42px;
+        margin-bottom:18px;
+    }
+
+    .btn-area{
+        text-align:right;
+        margin-top:20px;
+    }
+
+</style>
+
+<div class="page-wrapper">
+
+    <div class="card">
+
+        <h5 th:text="${cycle.id == null ? 'Create Appraisal Cycle' : 'Edit Appraisal Cycle'}"></h5>
+
+        <form th:action="${cycle.id == null} ?
+                         @{/appraisal/admin/cycle/save} :
+                         @{/appraisal/admin/cycle/update}"
+              method="post">
+
+            <!-- Hidden ID -->
+            <input type="hidden"
+                   name="id"
+                   th:value="${cycle.id}">
+
+            <!-- Cycle Title -->
+            <label class="form-label">Cycle Title</label>
+            <input type="text"
+                   name="title"
+                   class="form-control"
+                   th:value="${cycle.title}"
+                   required>
+
+            <!-- Start Date -->
+            <label class="form-label">Start Date</label>
+            <input type="date"
+                   name="startDate"
+                   class="form-control"
+                   th:value="${cycle.startDate}"
+                   required>
+
+            <!-- End Date -->
+            <label class="form-label">End Date</label>
+            <input type="date"
+                   name="endDate"
+                   class="form-control"
+                   th:value="${cycle.endDate}"
+                   required>
+
+            <!-- Status -->
+            <label class="form-label">Status</label>
+            <select name="status"
+                    class="form-control">
+
+                <option value="DRAFT"
+                        th:selected="${cycle.status == 'DRAFT'}">
+                    Draft
+                </option>
+
+                <option value="OPEN"
+                        th:selected="${cycle.status == 'OPEN'}">
+                    Open
+                </option>
+
+                <option value="CLOSED"
+                        th:selected="${cycle.status == 'CLOSED'}">
+                    Closed
+                </option>
+
+            </select>
+
+            <!-- Buttons -->
+            <div class="btn-area">
+                <button class="btn btn-primary btn-sm">
+                    Save
+                </button>
+
+                <a th:href="@{/appraisal/admin/cycles}"
+                   class="btn btn-secondary btn-sm">
+                    Back
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

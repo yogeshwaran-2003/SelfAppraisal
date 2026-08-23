@@ -1,0 +1,280 @@
+<style>
+    .page-wrapper{
+        max-width:1100px;
+        margin:20px auto;
+    }
+
+    .card{
+        border-radius:12px;
+        padding:25px;
+        background:#fff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+        margin-bottom:25px;
+    }
+
+    .section-title{
+        font-size:18px;
+        font-weight:600;
+        margin-bottom:15px;
+    }
+
+    textarea{
+        resize:none;
+    }
+
+    .btn-area{
+        text-align:right;
+        margin-top:20px;
+    }
+
+    .form-label{
+        font-weight:500;
+        margin-bottom:6px;
+    }
+
+    .status-badge{
+        font-size:13px;
+        padding:6px 12px;
+        border-radius:20px;
+        background:#16a34a;
+        color:#fff;
+        margin-left:10px;
+    }
+</style>
+
+<div class="page-wrapper">
+
+    <!-- ================= CYCLE INFO ================= -->
+    <div class="card">
+
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+
+            <div class="section-title">
+                Self Appraisal -
+                <span th:text="${cycle.title}"></span>
+
+                <span th:if="${locked}" class="status-badge">
+                Submitted
+            </span>
+            </div>
+
+            <!-- Instruction Button -->
+
+            <a th:href="@{/appraisal/instructions}"
+               class="btn btn-outline-info btn-sm">
+
+                View Instructions
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <form method="post"
+          enctype="multipart/form-data"
+          th:action="@{/appraisal/employee/self/save}">
+
+        <input type="hidden"
+               name="cycleId"
+               th:value="${cycle.id}" />
+
+        <!-- ================= GOALS SECTION ================= -->
+        <div class="card">
+
+            <div class="section-title">
+                Goal Performance Review
+            </div>
+
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th>Goal</th>
+                    <th width="120">Weightage</th>
+                    <th width="120">Self Score</th>
+                    <th>Self Comment</th>
+                    <th width="200">Document Upload</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="goal : ${goals}">
+                    <td th:text="${goal.title}"></td>
+
+                    <td th:text="${goal.weightage + '%'}"></td>
+
+                    <td>
+                        <input type="number"
+                               min="1"
+                               max="5"
+                               class="form-control"
+                               th:name="'score_' + ${goal.id}"
+                               th:value="${reviews[goal.id]?.selfScore}"
+                               th:disabled="${locked}" />
+                    </td>
+
+                    <td>
+                        <textarea class="form-control"
+                                  rows="2"
+                                  th:name="'comment_' + ${goal.id}"
+                                  th:text="${reviews[goal.id]?.selfComment}"
+                                  th:disabled="${locked}">
+                        </textarea>
+                    </td>
+
+                    <td>
+
+                        <input type="file"
+                               accept=".pdf,.png,.jpg,.doc,.docx,.txt,.xls,.xlsx"
+                               class="form-control"
+                               th:name="'file_' + ${goal.id}"
+                               th:disabled="${locked}" />
+
+                        <div th:if="${reviews[goal.id]?.evidenceFile != null}"
+                             style="margin-top:5px;">
+
+                            <a th:href="@{'/uploads/goals/' + ${reviews[goal.id].evidenceFile}}"
+                               target="_blank"
+                               class="btn btn-sm btn-outline-primary">
+
+                                View Uploaded File
+
+                            </a>
+
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(goals)}">
+                    <td colspan="4" class="text-center">
+                        No goals found for this cycle.
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- ================= PROJECT / CONTRIBUTIONS ================= -->
+        <div class="card">
+
+            <div class="section-title">
+                Project & Key Contributions Summary
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Major Projects Handled</label>
+                <textarea name="projectSummary"
+                          rows="3"
+                          class="form-control"
+                          th:text="${appraisal?.projectSummary}"
+                          th:disabled="${locked}">
+                </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Key Responsibilities & Deliverables</label>
+                <textarea name="taskSummary"
+                          rows="3"
+                          class="form-control"
+                          th:text="${appraisal?.taskSummary}"
+                          th:disabled="${locked}">
+                </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Measurable Achievements / Impact</label>
+                <textarea name="achievements"
+                          rows="3"
+                          class="form-control"
+                          th:text="${appraisal?.achievements}"
+                          th:disabled="${locked}">
+                </textarea>
+            </div>
+
+        </div>
+
+        <!-- ================= SELF ASSESSMENT ================= -->
+        <div class="card">
+
+            <div class="section-title">
+                Self Assessment & Professional Development
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Key Strengths</label>
+                <textarea name="strengths"
+                          rows="2"
+                          class="form-control"
+                          th:text="${appraisal?.strengths}"
+                          th:disabled="${locked}">
+                </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Areas of Improvement</label>
+                <textarea name="improvements"
+                          rows="2"
+                          class="form-control"
+                          th:text="${appraisal?.improvements}"
+                          th:disabled="${locked}">
+                </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Learning & Skill Development</label>
+                <textarea name="learning"
+                          rows="2"
+                          class="form-control"
+                          th:text="${appraisal?.learning}"
+                          th:disabled="${locked}">
+                </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Challenges Faced & Resolution</label>
+                <textarea name="challenges"
+                          rows="2"
+                          class="form-control"
+                          th:text="${appraisal?.challenges}"
+                          th:disabled="${locked}">
+                </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Career Goals for Next Cycle</label>
+                <textarea name="futureGoals"
+                          rows="2"
+                          class="form-control"
+                          th:text="${appraisal?.futureGoals}"
+                          th:disabled="${locked}">
+                </textarea>
+            </div>
+
+        </div>
+
+        <!-- ================= ACTION BUTTONS ================= -->
+        <div class="card" th:if="${!locked}">
+            <div class="btn-area">
+                <button type="submit"
+                        name="action"
+                        value="draft"
+                        class="btn btn-secondary">
+                    Save Draft
+                </button>
+
+                <button type="submit"
+                        name="action"
+                        value="submit"
+                        class="btn btn-primary">
+                    Submit Final Appraisal
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+</div>

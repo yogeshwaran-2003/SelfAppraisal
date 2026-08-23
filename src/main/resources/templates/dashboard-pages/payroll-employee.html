@@ -1,0 +1,118 @@
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<style>
+
+    .payroll-wrapper{
+        max-width:900px;
+        margin:20px auto;
+    }
+
+    .payroll-title{
+        font-size:22px;
+        font-weight:600;
+        margin-bottom:25px;
+        color:#1e293b;
+    }
+
+    .payroll-card{
+        border-radius:12px;
+        padding:25px;
+        background:#ffffff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+    #payslipTable{
+        border:1px solid #dee2e6;
+        border-radius:8px;
+        overflow:hidden;
+    }
+
+    #payslipTable th{
+        background:#f1f5f9;
+        border-bottom:1px solid #dee2e6;
+    }
+
+    #payslipTable td{
+        border-top:1px solid #dee2e6;
+        padding:12px 16px;
+        vertical-align:middle;
+    }
+
+</style>
+
+
+<div class="payroll-wrapper">
+
+    <div class="payroll-title">
+        My Payslips
+    </div>
+
+    <div class="payroll-card">
+
+        <table id="payslipTable" class="table">
+
+            <thead>
+
+            <tr>
+                <th>Month</th>
+                <th>Year</th>
+                <th>Base Salary</th>
+                <th>Deduction</th>
+                <th>Net Salary</th>
+                <th>Action</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="p : ${records}">
+
+                <td th:text="${p.month}"></td>
+                <td th:text="${p.year}"></td>
+                <td th:text="${p.baseSalary}"></td>
+<!--                <td th:text="${p.deduction}"></td>-->
+                <td th:text="'₹ ' + ${#numbers.formatDecimal(p.deduction,1,2)}"></td>
+<!--                <td th:text="${p.netSalary}"></td>-->
+                <td th:text="'₹ ' + ${#numbers.formatDecimal(p.netSalary,1,2)}"></td>
+
+                <td>
+
+                    <button class="btn btn-primary btn-sm"
+                            th:onclick="'window.location.href=\'/payroll/employee/payslip/' + ${p.id} + '\';'">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
+
+<script>
+
+    $(function() {
+
+        $('#payslipTable').DataTable();
+
+    });
+
+</script>

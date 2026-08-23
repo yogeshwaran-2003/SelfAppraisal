@@ -1,0 +1,139 @@
+<style>
+    .page-wrapper{
+        max-width:800px;
+        margin:30px auto;
+    }
+
+    .card{
+        border-radius:14px;
+        padding:30px 35px;
+        box-shadow:0 8px 25px rgba(0,0,0,.08);
+        background:#ffffff;
+    }
+
+    .form-label{
+        font-weight:600;
+        margin-bottom:6px;
+    }
+
+    .form-control,
+    .form-select{
+        height:44px;
+        border-radius:8px;
+        border:1px solid #dcdcdc;
+    }
+
+    .form-control:focus,
+    .form-select:focus{
+        border-color:#0d6efd;
+        box-shadow:0 0 0 0.15rem rgba(13,110,253,.15);
+    }
+
+    .btn-primary{
+        padding:8px 20px;
+        border-radius:8px;
+        font-weight:500;
+    }
+
+    .btn-secondary{
+        padding:8px 20px;
+        border-radius:8px;
+        font-weight:500;
+    }
+
+    .section-title{
+        font-weight:600;
+        margin-bottom:20px;
+        border-bottom:1px solid #eee;
+        padding-bottom:10px;
+    }
+</style>
+
+<div class="page-wrapper">
+
+    <div class="card">
+
+        <h4 class="section-title">Edit Appraisal Cycle</h4>
+
+        <form th:action="@{/appraisal/admin/cycle/update}"
+              method="post">
+
+            <!-- Hidden ID -->
+            <input type="hidden"
+                   name="id"
+                   th:value="${cycle.id}">
+
+            <!-- Cycle Title -->
+            <div class="mb-3">
+                <label class="form-label">Cycle Title</label>
+                <input type="text"
+                       class="form-control"
+                       name="title"
+                       th:value="${cycle.title}"
+                       required>
+            </div>
+
+            <!-- Start Date -->
+            <div class="mb-3">
+                <label class="form-label">Start Date</label>
+                <input type="date"
+                       class="form-control"
+                       name="startDate"
+                       th:value="${cycle.startDate}"
+                       required>
+            </div>
+
+            <!-- End Date -->
+            <div class="mb-3">
+                <label class="form-label">End Date</label>
+                <input type="date"
+                       class="form-control"
+                       name="endDate"
+                       th:value="${cycle.endDate}"
+                       required>
+            </div>
+
+            <!-- Status -->
+            <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select class="form-select"
+                        name="status">
+
+                    <option value="DRAFT"
+                            th:selected="${cycle.status == 'DRAFT'}">
+                        DRAFT
+                    </option>
+
+                    <option value="OPEN"
+                            th:selected="${cycle.status == 'OPEN'}">
+                        OPEN
+                    </option>
+
+                    <option value="CLOSED"
+                            th:selected="${cycle.status == 'CLOSED'}">
+                        CLOSED
+                    </option>
+
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between mt-4">
+
+                <a th:href="@{/appraisal/admin/cycles}"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Update Cycle
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

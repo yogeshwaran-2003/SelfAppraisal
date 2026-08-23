@@ -1,0 +1,185 @@
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    .company-edit-card{
+        border-radius:12px;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+        border:none;
+    }
+
+    .company-edit-card label{
+        font-weight:600;
+        font-size:14px;
+        color:#334155;
+        margin-bottom:5px;
+    }
+
+    .company-edit-card input,
+    .company-edit-card select{
+        border-radius:8px;
+        font-size:14px;
+        padding:8px 10px;
+    }
+
+    .company-edit-card input:focus,
+    .company-edit-card select:focus{
+        border-color:#2563eb;
+        box-shadow:0 0 0 0.15rem rgba(37,99,235,.25);
+    }
+
+    .section-title{
+        font-weight:600;
+        color:#1e293b;
+        margin-bottom:15px;
+    }
+</style>
+
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Edit Company</h4>
+
+    <a th:href="@{/company/view/{id}(id=${company.companyId})}"
+       class="btn btn-secondary btn-sm">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+</div>
+
+
+<div class="card company-edit-card p-4">
+
+    <form th:action="@{/company/update}" method="post">
+
+        <!-- Hidden ID -->
+        <input type="hidden"
+               name="companyId"
+               th:value="${company.companyId}" />
+
+        <div class="row">
+
+            <!-- Basic Info -->
+            <div class="col-12 section-title">Basic Information</div>
+
+            <div class="col-md-6 mb-3">
+                <label>Company Name</label>
+                <input type="text"
+                       name="companyName"
+                       class="form-control"
+                       th:value="${company.companyName}" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Company Code</label>
+                <input type="text"
+                       name="companyCode"
+                       class="form-control"
+                       th:value="${company.companyCode}" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Registration Number</label>
+                <input type="text"
+                       name="registrationNo"
+                       class="form-control"
+                       th:value="${company.registrationNo}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Sector</label>
+                <input type="text"
+                       name="sector"
+                       class="form-control"
+                       th:value="${company.sector}">
+            </div>
+
+
+            <!-- GST Section -->
+            <div class="col-12 section-title mt-3">GST Information</div>
+
+            <div class="col-md-6 mb-3">
+                <label>GST Registered</label>
+                <select name="gstRegistered" class="form-control">
+                    <option th:value="true"
+                            th:selected="${company.gstRegistered}">Yes</option>
+                    <option th:value="false"
+                            th:selected="${!company.gstRegistered}">No</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>GST Percentage</label>
+                <input type="number"
+                       step="0.01"
+                       name="gstPercentage"
+                       class="form-control"
+                       th:value="${company.gstPercentage}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>GST Registration Number</label>
+                <input type="text"
+                       name="gstRegistrationNo"
+                       class="form-control"
+                       th:value="${company.gstRegistrationNo}">
+            </div>
+
+
+            <!-- Office Section -->
+            <div class="col-12 section-title mt-3">Office Settings</div>
+
+            <div class="col-md-6 mb-3">
+                <label>Working Hours</label>
+                <input type="number"
+                       step="0.1"
+                       name="workingHours"
+                       class="form-control"
+                       th:value="${company.workingHours}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Office Start Time</label>
+                <input type="time"
+                       name="officeStartTime"
+                       class="form-control"
+                       th:value="${company.officeStartTime}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Office End Time</label>
+                <input type="time"
+                       name="officeEndTime"
+                       class="form-control"
+                       th:value="${company.officeEndTime}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Payroll Country</label>
+                <input type="text"
+                       name="payrollCountry"
+                       class="form-control"
+                       th:value="${company.payrollCountry}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Company Login ID</label>
+                <input type="text"
+                       name="companyLoginId"
+                       class="form-control"
+                       th:value="${company.companyLoginId}">
+            </div>
+
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success btn-sm">
+                <i class="fa-solid fa-check"></i> Update
+            </button>
+
+            <a th:href="@{/company}"
+               class="btn btn-danger btn-sm">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+</div>

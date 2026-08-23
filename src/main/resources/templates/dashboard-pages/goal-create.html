@@ -1,0 +1,76 @@
+<style>
+    .page-wrapper{
+        max-width:700px;
+        margin:20px auto;
+    }
+
+    .card{
+        border-radius:12px;
+        padding:30px;
+        background:#fff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+    .form-label{
+        font-weight:500;
+        margin-top:10px;
+    }
+
+    .btn-area{
+        text-align:right;
+        margin-top:20px;
+    }
+</style>
+
+<div class="page-wrapper">
+
+    <div class="card">
+
+        <h5>Create Goal</h5>
+
+        <form th:action="@{/appraisal/employee/goals/create}"
+              method="post">
+
+            <div class="mb-3">
+                <label class="form-label">Goal Title</label>
+                <input type="text"
+                       name="title"
+                       class="form-control"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description"
+                          class="form-control"
+                          rows="3"
+                          required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Weightage (%)</label>
+                <input type="number"
+                       name="weightage"
+                       min="1"
+                       max="100"
+                       class="form-control"
+                       required>
+            </div>
+
+            <div class="btn-area">
+                <button type="submit"
+                        class="btn btn-primary btn-sm">
+                    Save
+                </button>
+
+                <a th:href="@{/appraisal/employee/goals}"
+                   class="btn btn-secondary btn-sm">
+                    Back
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

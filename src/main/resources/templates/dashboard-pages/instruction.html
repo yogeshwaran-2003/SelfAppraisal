@@ -1,0 +1,643 @@
+<style>
+
+    .page-wrapper{
+        max-width:900px;
+        margin:20px auto;
+    }
+
+    .card{
+        background:#ffffff;
+        border-radius:12px;
+        padding:25px;
+        margin-bottom:25px;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+    .page-title{
+        font-size:26px;
+        font-weight:700;
+        margin-bottom:10px;
+    }
+
+    .section-title{
+        font-size:18px;
+        font-weight:600;
+        margin-bottom:15px;
+    }
+
+    .goal-table{
+        width:100%;
+        border-collapse:collapse;
+    }
+
+    .goal-table th{
+        background:#f1f3f6;
+        padding:12px;
+        font-weight:600;
+        text-align:left;
+    }
+
+    .goal-table td{
+        padding:12px;
+        border-top:1px solid #e5e7eb;
+    }
+
+    .score{
+        font-weight:700;
+        text-align:center;
+        width:80px;
+    }
+
+    .evidence-box{
+        margin-top:15px;
+        background:#f8fafc;
+        padding:12px;
+        border-left:4px solid #2563eb;
+        font-size:14px;
+    }
+
+    .evidence-box ul{
+        margin:8px 0 0 18px;
+    }
+
+    .back-btn{
+        margin-bottom:15px;
+    }
+
+</style>
+
+
+<div class="page-wrapper">
+
+    <a href="/appraisal/employee/self" class="btn btn-secondary back-btn">
+        ← Back to Self Appraisal
+    </a>
+
+    <div class="card">
+
+        <div class="page-title">
+            Employee Self Appraisal – Rating Instructions
+        </div>
+
+        <p>
+            Employees should evaluate their performance based on measurable achievements
+            during the appraisal cycle. The following goal categories define how ratings
+            from <strong>1 to 5</strong> should be assigned.
+        </p>
+
+    </div>
+
+
+    <!-- 1 -->
+    <div class="card">
+
+        <div class="section-title">
+            1. Project Delivery Goals
+        </div>
+
+        <p><strong>Example:</strong> Develop and Deliver Project Modules</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>Completed 5 or more major modules/tasks before deadline with excellent quality</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Completed 4 major modules/tasks on time with minimal corrections</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Completed 3 modules/tasks on time with acceptable quality</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>Completed 1–2 modules/tasks but required multiple corrections or delays</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>Tasks not completed or incomplete work delivered</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Project delivery reports</li>
+                <li>Git commits</li>
+                <li>Module completion screenshots</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- 2 -->
+    <div class="card">
+
+        <div class="section-title">
+            2. Code Quality / Bug Reduction Goals
+        </div>
+
+        <p><strong>Example:</strong> Reduce Bugs and Improve Code Quality</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>Fixed 20+ bugs and improved system stability</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Fixed 15–19 bugs</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Fixed 10–14 bugs</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>Fixed 5–9 bugs</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>Fixed less than 5 bugs or introduced new issues</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Bug tracking reports</li>
+                <li>Issue tracker screenshots</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- 3 -->
+    <div class="card">
+
+        <div class="section-title">
+            3. Performance Optimization Goals
+        </div>
+
+        <p><strong>Example:</strong> Improve System Performance</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>Implemented 4 or more performance improvements (query optimization, caching etc.)</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Implemented 3 improvements</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Implemented 2 improvements</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>Implemented 1 improvement</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>No performance improvement implemented</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Performance reports</li>
+                <li>Optimization documentation</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- 4 -->
+    <div class="card">
+
+        <div class="section-title">
+            4. Technical Skill Development Goals
+        </div>
+
+        <p><strong>Example:</strong> Complete Technical Certifications</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>Completed 3 or more certifications/training programs</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Completed 2 certifications</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Completed 1 certification</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>Attended technical training but did not complete certification</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>No learning or training completed</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Certification certificates</li>
+                <li>Training completion reports</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- 5 -->
+    <div class="card">
+
+        <div class="section-title">
+            5. Knowledge Sharing / Leadership Goals
+        </div>
+
+        <p><strong>Example:</strong> Conduct Knowledge Sharing Sessions</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>Conducted 5 or more knowledge sharing sessions or mentored team members</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Conducted 3–4 sessions</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Conducted 1–2 sessions</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>Participated in sessions but did not lead any session</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>No knowledge sharing activities</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Presentation slides</li>
+                <li>Seminar reports</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- 6 -->
+    <div class="card">
+
+        <div class="section-title">
+            6. Productivity / Task Completion Goals
+        </div>
+
+        <p><strong>Example:</strong> Complete Assigned Tasks Efficiently</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>Completed 15 or more assigned tasks within deadlines</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Completed 12–14 tasks within deadlines</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Completed 8–11 tasks within deadlines</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>Completed 4–7 tasks with delays</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>Completed less than 4 tasks</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Task tracker reports</li>
+                <li>Project management tools</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- 7 -->
+    <div class="card">
+
+        <div class="section-title">
+            7. Attendance & Punctuality Goals
+        </div>
+
+        <p><strong>Example:</strong> Maintain Work Discipline</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>No late arrivals or absences during the appraisal cycle</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Late 1–2 times</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Late 3–4 times</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>Late 5–6 times</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>Late more than 6 times or frequent absence</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Attendance records</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- 8 -->
+    <div class="card">
+
+        <div class="section-title">
+            8. Client / Stakeholder Satisfaction Goals
+        </div>
+
+        <p><strong>Example:</strong> Maintain Client Satisfaction</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>Received 3 or more client appreciation messages or positive feedback</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Received 2 positive feedback messages</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Received 1 positive feedback message</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>No feedback received</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>Received client complaint or negative feedback</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Client emails</li>
+                <li>Feedback reports</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- 9 -->
+    <div class="card">
+
+        <div class="section-title">
+            9. Documentation & Process Compliance Goals
+        </div>
+
+        <p><strong>Example:</strong> Maintain Project Documentation</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>Prepared 5 or more detailed documents (design docs, manuals etc.)</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Prepared 4 documents</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Prepared 3 documents</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>Prepared 1–2 documents</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>No documentation maintained</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Technical documentation</li>
+                <li>System design reports</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- 10 -->
+    <div class="card">
+
+        <div class="section-title">
+            10. Innovation / Process Improvement Goals
+        </div>
+
+        <p><strong>Example:</strong> Implement Process Improvements</p>
+
+        <table class="goal-table">
+
+            <tr>
+                <th>Score</th>
+                <th>Condition</th>
+            </tr>
+
+            <tr>
+                <td class="score">5</td>
+                <td>Implemented 3 or more automation or improvement solutions</td>
+            </tr>
+
+            <tr>
+                <td class="score">4</td>
+                <td>Implemented 2 improvements</td>
+            </tr>
+
+            <tr>
+                <td class="score">3</td>
+                <td>Implemented 1 improvement</td>
+            </tr>
+
+            <tr>
+                <td class="score">2</td>
+                <td>Suggested improvement ideas but not implemented</td>
+            </tr>
+
+            <tr>
+                <td class="score">1</td>
+                <td>No innovation or improvement activity</td>
+            </tr>
+
+        </table>
+
+        <div class="evidence-box">
+            <strong>Evidence examples:</strong>
+            <ul>
+                <li>Automation scripts</li>
+                <li>Improvement proposals</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <div class="card evidence-box">
+
+        <strong>Important:</strong>
+
+        Employees should assign ratings based on measurable achievements.
+
+        If a rating of <strong>4 or 5</strong> is selected, supporting evidence or documentation must be provided.
+
+        Managers will review the submitted information and finalize the rating.
+
+    </div>
+
+</div>

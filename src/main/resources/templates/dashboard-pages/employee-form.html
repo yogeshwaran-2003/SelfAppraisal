@@ -1,0 +1,250 @@
+<style>
+    .section-title{
+        font-size:18px;
+        font-weight:600;
+        margin-top:25px;
+        margin-bottom:15px;
+        padding-bottom:5px;
+        border-bottom:2px solid #e5e7eb;
+    }
+
+    .page-wrapper{
+        max-width:900px;
+        margin:30px auto;
+    }
+
+    .card{
+        border-radius:12px;
+        padding:25px 30px;
+        box-shadow:0 4px 15px rgba(0,0,0,.08);
+        background:#fff;
+    }
+
+    .form-control{
+        height:44px;
+    }
+
+    textarea.form-control{
+        height:80px;
+    }
+
+    .btn-area{
+        margin-top:30px;
+        text-align:right;
+    }
+</style>
+<div class="page-wrapper">
+
+    <div class="card">
+
+        <h4>Create Employee</h4>
+
+        <form action="/employees/save" method="post">
+
+            <input type="hidden" name="employeeId">
+
+
+            <!-- ================= PERSONAL INFORMATION ================= -->
+
+            <div class="section-title">PERSONAL INFORMATION</div>
+
+            <input class="form-control mb-3" name="employeeCode" placeholder="Employee Code" required>
+
+            <input class="form-control mb-3" name="firstName" placeholder="First Name" required>
+
+            <input class="form-control mb-3" name="lastName" placeholder="Last Name">
+
+            <select class="form-control mb-3" name="gender">
+                <option value="">Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
+
+            <input type="date" class="form-control mb-3" name="dob" placeholder="Date Of Birth">
+
+            <input class="form-control mb-3" name="mobileNo" placeholder="Mobile">
+
+            <input type="email" class="form-control mb-3" name="email" placeholder="Email">
+
+            <input class="form-control mb-3" name="nationality" placeholder="Nationality">
+
+            <input class="form-control mb-3" name="idType" placeholder="ID Type">
+
+            <input class="form-control mb-3" name="idNumber" placeholder="ID Number">
+
+            <select class="form-control mb-3" name="maritalStatus">
+                <option value="">Marital Status</option>
+                <option>Un-Married</option>
+                <option>Married</option>
+            </select>
+
+
+            <!-- ================= WORK DETAILS ================= -->
+
+            <div class="section-title">WORK DETAILS</div>
+
+            <select class="form-control mb-3"
+                    name="department.departmentId"
+                    required>
+
+                <option value="">Select Department</option>
+
+                <option th:each="dept : ${departments}"
+                        th:value="${dept.departmentId}"
+                        th:text="${dept.departmentName}">
+                </option>
+
+            </select>
+
+            <input class="form-control mb-3" name="designation" placeholder="Designation">
+
+            <select class="form-control mb-3" name="workingType">
+                <option value="">Working Type</option>
+                <option>Full Time</option>
+                <option>Contract</option>
+            </select>
+
+
+            <input type="date" class="form-control mb-3" name="joiningDate" placeholder="Joining Date">
+
+
+            <input class="form-control mb-3" name="location" placeholder="Location">
+
+
+            <input class="form-control mb-3" name="workingHours" placeholder="Working Hours">
+
+
+            <textarea class="form-control mb-3"
+                      name="jobDescription"
+                      placeholder="Job Description"></textarea>
+
+
+            <!-- Reporting Manager -->
+            <label>
+                <input type="checkbox"
+                       name="isReportingManager">
+                This employee is a Reporting Manager
+            </label>
+
+            <select class="form-control mb-3"
+                    name="reportingTo.employeeId">
+
+                <option value="">Reporting Manager</option>
+
+                <option th:each="emp : ${employees}"
+                        th:value="${emp.employeeId}"
+                        th:text="${emp.firstName + ' ' + emp.lastName}">
+                </option>
+
+            </select>
+
+
+            <!-- ================= ATTENDANCE ================= -->
+
+            <div class="section-title">ATTENDANCE DETAILS</div>
+
+            <select class="form-control mb-3" name="shift">
+                <option value="">Shift</option>
+                <option>Morning</option>
+                <option>Evening</option>
+                <option>Night</option>
+                <option>General</option>
+            </select>
+
+            <input type="time" class="form-control mb-3" name="officeStartTime">
+
+            <input type="time" class="form-control mb-3" name="officeEndTime">
+
+            <label>
+                <input type="checkbox" name="attendanceRequired">
+                Attendance Required
+            </label>
+
+            <br>
+
+            <label>
+                <input type="checkbox" name="attendanceRequiredForPay">
+                Attendance Required For Pay
+            </label>
+
+
+            <!-- ================= STATUS ================= -->
+
+            <div class="section-title">STATUS / RESIGNATION</div>
+
+            <label>
+                <input type="checkbox" id="resignationCheck" name="resignation">
+                Resigned
+            </label>
+
+
+            <div id="resignationFields" style="display:none">
+
+                <select class="form-control mb-3" name="resignationType">
+                    <option value="">Resignation Type</option>
+                    <option>Voluntary</option>
+                    <option>Termination</option>
+                </select>
+
+                <input type="number" class="form-control mb-3" name="noticePeriodDays"
+                       placeholder="Notice Period Days">
+
+                <input type="date" class="form-control mb-3" name="cessationDate">
+
+                <textarea class="form-control mb-3"
+                          name="resignationRemarks"
+                          placeholder="Remarks"></textarea>
+
+            </div>
+
+
+            <!-- ================= ADDRESS ================= -->
+
+            <div class="section-title">ADDRESS</div>
+
+            <textarea class="form-control mb-3"
+                      name="address"
+                      placeholder="Address"></textarea>
+
+            <input class="form-control mb-3" name="city" placeholder="City">
+
+            <input class="form-control mb-3" name="country" placeholder="Country">
+
+            <input class="form-control mb-3" name="postalCode" placeholder="Postal Code">
+
+
+            <!-- ================= ACTIVE ================= -->
+
+            <label>
+                <input type="checkbox" name="isActive" checked>
+                Active
+            </label>
+
+
+            <!-- ================= BUTTONS ================= -->
+
+            <div class="btn-area">
+
+                <button class="btn btn-primary">Save</button>
+
+                <a href="/employees" class="btn btn-secondary">Back</a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+<script>
+
+    document.getElementById("resignationCheck")
+    .addEventListener("change", function(){
+
+    document.getElementById("resignationFields")
+    .style.display = this.checked ? "block" : "none";
+
+    });
+
+</script>

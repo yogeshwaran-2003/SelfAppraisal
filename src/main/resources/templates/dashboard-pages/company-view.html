@@ -1,0 +1,140 @@
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    .view-card{
+        border-radius:12px;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+        border:none;
+    }
+
+    .view-label{
+        font-weight:600;
+        color:#475569;
+        margin-bottom:4px;
+        font-size:14px;
+    }
+
+    .view-value{
+        font-size:15px;
+        color:#1e293b;
+        margin-bottom:18px;
+    }
+
+    .section-title{
+        font-weight:600;
+        color:#0f172a;
+        margin-bottom:15px;
+        border-bottom:1px solid #e2e8f0;
+        padding-bottom:6px;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Company Details</h4>
+
+    <div>
+        <a th:href="@{/company}"
+           class="btn btn-secondary btn-sm">
+            Back
+        </a>
+    </div>
+</div>
+
+
+<div class="card view-card p-4">
+
+    <!-- BASIC INFO -->
+    <div class="section-title">Basic Information</div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="view-label">Company Name</div>
+            <div class="view-value" th:text="${company.companyName}"></div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="view-label">Company Code</div>
+            <div class="view-value" th:text="${company.companyCode}"></div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="view-label">Registration Number</div>
+            <div class="view-value" th:text="${company.registrationNo}"></div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="view-label">Sector</div>
+            <div class="view-value" th:text="${company.sector}"></div>
+        </div>
+    </div>
+
+
+    <!-- GST INFO -->
+    <div class="section-title mt-3">GST Information</div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="view-label">GST Registered</div>
+            <div class="view-value"
+                 th:text="${company.gstRegistered} ? 'Yes' : 'No'">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="view-label">GST Percentage</div>
+            <div class="view-value"
+                 th:text="${company.gstPercentage} + ' %'">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="view-label">GST Registration No</div>
+            <div class="view-value"
+                 th:text="${company.gstRegistrationNo}"></div>
+        </div>
+    </div>
+
+
+    <!-- OFFICE SETTINGS -->
+    <div class="section-title mt-3">Office Settings</div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="view-label">Working Hours</div>
+            <div class="view-value"
+                 th:text="${company.workingHours} + ' hrs'">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="view-label">Office Start Time</div>
+            <div class="view-value"
+                 th:text="${company.officeStartTime}">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="view-label">Office End Time</div>
+            <div class="view-value"
+                 th:text="${company.officeEndTime}">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="view-label">Payroll Country</div>
+            <div class="view-value"
+                 th:text="${company.payrollCountry}">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- LOGIN DETAILS -->
+    <div class="section-title mt-3">Login Information</div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="view-label">Company Login ID</div>
+            <div class="view-value"
+                 th:text="${company.companyLoginId}">
+            </div>
+        </div>
+    </div>
+</div>

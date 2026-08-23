@@ -1,0 +1,130 @@
+<style>
+    .dept-view-wrapper{
+        max-width:720px;
+        margin:30px auto;
+    }
+
+    .dept-view-card{
+        background:#ffffff;
+        border-radius:12px;
+        box-shadow:0 8px 25px rgba(0,0,0,.06);
+        padding:30px 35px;
+    }
+
+    .dept-view-title{
+        font-size:20px;
+        font-weight:600;
+        margin-bottom:20px;
+        padding-bottom:12px;
+        border-bottom:1px solid #e5e7eb;
+        color:#0f172a;
+    }
+
+    .dept-row{
+        display:grid;
+        grid-template-columns:200px 1fr;
+        gap:15px;
+        padding:8px 0;
+    }
+
+    .dept-label{
+        font-weight:600;
+        color:#334155;
+    }
+
+    .dept-value{
+        color:#0f172a;
+        word-break:break-word;
+    }
+
+    .dept-divider{
+        margin:22px 0;
+        border-top:1px dashed #e5e7eb;
+    }
+
+    .audit-title{
+        font-size:15px;
+        font-weight:600;
+        color:#475569;
+        margin-bottom:10px;
+    }
+
+    .back-btn{
+        margin-top:25px;
+        text-align:right;
+    }
+
+</style>
+
+<div class="dept-view-wrapper">
+
+    <div class="dept-view-card">
+
+        <div class="dept-view-title">Department Details</div>
+
+        <div class="dept-row">
+            <div class="dept-label">Department ID</div>
+            <div class="dept-value" th:text="${department.departmentId}"></div>
+        </div>
+
+        <div class="dept-row">
+            <div class="dept-label">Department Code</div>
+            <div class="dept-value" th:text="${department.departmentCode}"></div>
+        </div>
+
+        <div class="dept-row">
+            <div class="dept-label">Department Name</div>
+            <div class="dept-value" th:text="${department.departmentName}"></div>
+        </div>
+
+        <div class="dept-row">
+            <div class="dept-label">Description</div>
+            <div class="dept-value" th:text="${department.description}"></div>
+        </div>
+
+        <div class="dept-row">
+            <div class="dept-label">Status</div>
+            <div class="dept-value"
+                 th:text="${department.active ? 'Active' : 'Inactive'}"></div>
+        </div>
+
+        <div class="dept-row">
+            <div class="dept-label">Company</div>
+            <div class="dept-value"
+                 th:text="${department.company != null ? department.company.companyName : '-'}"></div>
+        </div>
+
+        <div class="dept-divider"></div>
+
+        <div class="audit-title">Audit Information</div>
+
+        <div class="dept-row">
+            <div class="dept-label">Created By</div>
+            <div class="dept-value" th:text="${department.createdBy}"></div>
+        </div>
+
+        <div class="dept-row">
+            <div class="dept-label">Created Date</div>
+            <div class="dept-value" th:text="${department.createdDate}"></div>
+        </div>
+
+        <div class="dept-row">
+            <div class="dept-label">Updated By</div>
+            <div class="dept-value" th:text="${department.updatedBy}"></div>
+        </div>
+
+        <div class="dept-row">
+            <div class="dept-label">Updated Date</div>
+            <div class="dept-value" th:text="${department.updatedDate}"></div>
+        </div>
+
+        <div class="back-btn">
+
+            <a th:href="@{/departments}"
+               class="btn btn-secondary px-4">
+                Back
+            </a>
+
+        </div>
+    </div>
+</div>

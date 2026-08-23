@@ -1,0 +1,94 @@
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+    .card{
+     border-radius:10px;
+     box-shadow:0 2px 10px rgba(0,0,0,.08);
+    }
+
+    #projectTable{
+     border:1px solid #dee2e6;
+     border-radius:8px;
+     overflow:hidden;
+    }
+
+    #projectTable th{
+     background:#f1f5f9;
+     border-bottom:1px solid #dee2e6;
+    }
+
+    #projectTable td{
+     border-top:1px solid #dee2e6;
+     padding:12px 16px;
+     vertical-align: middle;
+    }
+
+</style>
+
+
+<div class="d-flex justify-content-between">
+
+    <h4>Projects</h4>
+
+    <button class="btn btn-primary mb-3"
+            onclick="window.location.href='/projects/create'">
+        Create Project
+    </button>
+
+</div>
+
+
+<div class="card p-3">
+
+    <table id="projectTable" class="table">
+
+        <thead>
+
+        <tr>
+            <th>Project</th>
+            <th>Client</th>
+            <th>Manager</th>
+            <th>Status</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="p : ${projects}">
+
+            <td th:text="${p.projectName}"></td>
+
+            <td th:text="${p.clientName}"></td>
+
+            <td th:text="${p.manager != null ? p.manager.firstName + ' ' + p.manager.lastName : '-'}"></td>
+
+            <td>
+<span th:text="${p.status}"
+      class="fw-semibold text-success">
+</span>
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<script>
+
+    $(function(){
+
+        $('#projectTable').DataTable();
+
+    });
+
+</script>

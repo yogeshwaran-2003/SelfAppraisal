@@ -1,0 +1,117 @@
+<style>
+
+    .attendance-wrapper{
+        max-width:1000px;
+        margin:20px auto;
+    }
+
+    .attendance-title{
+        font-size:22px;
+        font-weight:600;
+        margin-bottom:25px;
+        color:#1e293b;
+    }
+
+    .attendance-card{
+        border-radius:12px;
+        padding:25px;
+        background:#ffffff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+        transition:transform .2s ease, box-shadow .2s ease;
+        text-align:center;
+    }
+
+    .attendance-card:hover{
+        transform:translateY(-5px);
+        box-shadow:0 6px 20px rgba(0,0,0,.12);
+    }
+
+    .attendance-card h5{
+        margin-bottom:15px;
+        font-weight:600;
+    }
+
+    .attendance-card p{
+        font-size:14px;
+        color:#64748b;
+        margin-bottom:20px;
+    }
+
+    .attendance-btn{
+        width:100%;
+        border-radius:8px;
+        padding:8px 0;
+    }
+
+</style>
+
+<div class="attendance-wrapper">
+
+    <div class="attendance-title">
+        Attendance Module
+    </div>
+
+    <div class="row g-4">
+
+        <!-- ADMIN -->
+        <div class="col-md-4"
+             th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+
+            <div class="attendance-card">
+
+                <h5>Attendance Reports</h5>
+                <p>
+                    View and generate monthly attendance reports.
+                </p>
+
+                <a th:href="@{/attendance/admin}"
+                   class="btn btn-primary attendance-btn">
+                    View Reports
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- MANAGER -->
+        <div class="col-md-4"
+             th:if="${#authorization.expression('hasRole(''MANAGER'')')}">
+
+            <div class="attendance-card">
+
+                <h5>Mark Attendance</h5>
+                <p>
+                    Mark daily attendance for your reporting employees.
+                </p>
+
+                <a th:href="@{/manager/attendance}"
+                   class="btn btn-warning attendance-btn">
+                    Mark Now
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- EMPLOYEE -->
+        <div class="col-md-4"
+             th:if="${#authorization.expression('hasRole(''EMPLOYEE'')')}">
+
+            <div class="attendance-card">
+
+                <h5>My Attendance</h5>
+                <p>
+                    View your attendance history and monthly summary.
+                </p>
+
+                <a th:href="@{/attendance/employee}"
+                   class="btn btn-success attendance-btn">
+                    View Attendance
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

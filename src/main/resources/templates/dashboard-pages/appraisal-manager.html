@@ -1,0 +1,142 @@
+<style>
+    .page-wrapper{
+        max-width:1100px;
+        margin:20px auto;
+    }
+
+    .card{
+        border-radius:12px;
+        padding:25px;
+        background:#fff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+        margin-bottom:25px;
+    }
+
+    .section-title{
+        font-size:18px;
+        font-weight:600;
+        margin-bottom:15px;
+    }
+
+    .badge-open{
+        background:#16a34a;
+        color:#fff;
+    }
+
+    .btn-sm{
+        font-size:13px;
+    }
+</style>
+
+<div class="page-wrapper">
+
+    <!-- ================= OPEN CYCLES ================= -->
+    <div class="card">
+
+        <div class="section-title">
+            Open Appraisal Cycles
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+            <tr>
+                <th>Title</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Status</th>
+                <th width="120">Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="c : ${cycles}">
+                <td th:text="${c.title}"></td>
+                <td th:text="${c.startDate}"></td>
+                <td th:text="${c.endDate}"></td>
+                <td>
+                    <span class="badge badge-open"
+                          th:text="${c.status}">
+                    </span>
+                </td>
+                <td>
+                    <a th:href="@{'/appraisal/manager/reviews?cycleId=' + ${c.id}}"
+                       class="btn btn-primary btn-sm">
+                        View Team
+                    </a>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(cycles)}">
+                <td colspan="5" class="text-center">
+                    No OPEN cycles available.
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <!-- ================= TEAM SECTION ================= -->
+    <div class="card" th:if="${team != null}">
+
+        <div class="section-title">
+            Reporting Employees
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+            <tr>
+
+                <th>Employee Name</th>
+                <th>Department</th>
+                <th width="120">Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="emp : ${team}">
+
+                <td th:text="${emp.firstName + ' ' + emp.lastName}"></td>
+                <td th:text="${emp.department?.departmentName}"></td>
+
+
+                <td th:switch="${appraisalStatusMap[emp.employeeId]}">
+
+                    <!-- When employee submitted -->
+                    <a th:case="'SUBMITTED'"
+                       th:href="@{/appraisal/manager/review(
+                employeeId=${emp.employeeId},
+                cycleId=${cycle.id})}"
+                       class="btn btn-success btn-sm">
+                        Review
+                    </a>
+
+                    <!-- When already reviewed -->
+                    <span th:case="'REVIEWED'" class="badge bg-primary">
+        Reviewed
+    </span>
+
+                    <!-- Default case -->
+                    <span th:case="*" class="badge bg-secondary">
+        Not Submitted
+    </span>
+
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(team)}">
+                <td colspan="3" class="text-center">
+                    No reporting employees found.
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

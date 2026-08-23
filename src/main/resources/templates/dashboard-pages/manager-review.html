@@ -1,0 +1,275 @@
+<style>
+    .page-wrapper{
+        max-width:1100px;
+        margin:20px auto;
+    }
+    .card{
+        border-radius:12px;
+        padding:25px;
+        background:#fff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+        margin-bottom:20px;
+    }
+    .section-title{
+        font-size:18px;
+        font-weight:600;
+        margin-bottom:15px;
+    }
+    textarea{
+        width:100%;
+        resize:none;
+    }
+    .employee-label{
+        font-weight:600;
+        font-size:14px;
+        color:#555;
+        margin-bottom:3px;
+    }
+</style>
+
+<div class="page-wrapper">
+
+    <form th:action="@{/appraisal/manager/review/save}"
+          method="post">
+
+        <input type="hidden"
+               name="employeeId"
+               th:value="${appraisal.employee.employeeId}"/>
+
+        <input type="hidden"
+               name="cycleId"
+               th:value="${appraisal.appraisalCycle.id}"/>
+
+        <!-- ================= EMPLOYEE DETAILS ================= -->
+
+        <div class="card">
+
+            <div class="section-title">
+                Employee Details
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+                    <div class="employee-label">Employee</div>
+                    <div th:text="${appraisal.employee.firstName + ' ' + appraisal.employee.lastName}"></div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="employee-label">Employee Code</div>
+                    <div th:text="${appraisal.employee.employeeCode}"></div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="employee-label">Department</div>
+                    <div th:text="${appraisal.employee.department != null ? appraisal.employee.department.departmentName : '-'}"></div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="employee-label">Designation</div>
+                    <div th:text="${appraisal.employee.designation}"></div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="employee-label">Appraisal Cycle</div>
+                    <div th:text="${appraisal.appraisalCycle.title}"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= GOAL REVIEW ================= -->
+
+        <div class="card">
+
+            <div class="section-title">
+                Goal Performance Review
+            </div>
+
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th>Goal</th>
+                    <th>Weight</th>
+                    <th>Self Score</th>
+                    <th>Documents</th>
+                    <th>Manager Score</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="goal : ${goals}">
+
+                    <td th:text="${goal.title}"></td>
+
+                    <td th:text="${goal.weightage + '%'}"></td>
+
+                    <td>
+                        <span th:text="${reviews[goal.id].selfScore}"></span>
+                    </td>
+
+                    <!-- Evidence File -->
+
+                    <td>
+
+                        <div th:if="${!#strings.isEmpty(reviews[goal.id].evidenceFile)}">
+
+                            <!-- View -->
+                            <a th:href="@{'/uploads/goals/' + ${reviews[goal.id].evidenceFile}}"
+                               target="_blank"
+                               class="btn btn-sm btn-outline-primary me-1">
+                                View
+                            </a>
+
+                            <!-- Download -->
+                            <a th:href="@{'/uploads/goals/' + ${reviews[goal.id].evidenceFile}}"
+                               th:download="${reviews[goal.id].evidenceFile}"
+                               class="btn btn-sm btn-outline-success">
+                                Download
+                            </a>
+
+                        </div>
+
+                        <span th:if="${#strings.isEmpty(reviews[goal.id].evidenceFile)}"
+                              class="text-muted">
+        No File
+    </span>
+
+                    </td>
+
+                    <td>
+                        <input type="number"
+                               min="1"
+                               max="5"
+                               th:name="${'managerScore_' + goal.id}"
+                               th:value="${reviews[goal.id].managerScore}"
+                               class="form-control"
+                               th:disabled="${isReviewed}" />
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- ================= EMPLOYEE PROJECT SUMMARY ================= -->
+
+        <div class="card">
+
+            <div class="section-title">
+                Project & Key Contributions (Employee Input)
+            </div>
+
+            <div class="mb-3">
+                <label>Major Projects</label>
+                <textarea rows="3"
+                          class="form-control"
+                          th:text="${appraisal.projectSummary}"
+                          readonly></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label>Responsibilities & Deliverables</label>
+                <textarea rows="3"
+                          class="form-control"
+                          th:text="${appraisal.taskSummary}"
+                          readonly></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label>Achievements</label>
+                <textarea rows="3"
+                          class="form-control"
+                          th:text="${appraisal.achievements}"
+                          readonly></textarea>
+            </div>
+
+        </div>
+
+        <!-- ================= SELF ASSESSMENT ================= -->
+
+        <div class="card">
+
+            <div class="section-title">
+                Self Assessment (Employee Input)
+            </div>
+
+            <div class="mb-3">
+                <label>Strengths</label>
+                <textarea rows="2"
+                          class="form-control"
+                          th:text="${appraisal.strengths}"
+                          readonly></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label>Areas of Improvement</label>
+                <textarea rows="2"
+                          class="form-control"
+                          th:text="${appraisal.improvements}"
+                          readonly></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label>Learning & Development</label>
+                <textarea rows="2"
+                          class="form-control"
+                          th:text="${appraisal.learning}"
+                          readonly></textarea>
+            </div>
+
+        </div>
+
+        <!-- ================= OVERALL REVIEW ================= -->
+
+        <div class="card">
+
+            <div class="section-title">
+                Overall Review
+            </div>
+
+            <div class="mb-3">
+                <label>Overall Self Rating</label>
+                <input type="text"
+                       class="form-control"
+                       th:value="${appraisal.overallSelfRating}"
+                       readonly/>
+            </div>
+
+            <div class="mb-3">
+                <label>Manager Overall Rating</label>
+                <input type="number"
+                       min="1"
+                       max="5"
+                       name="overallManagerRating"
+                       th:value="${appraisal.overallManagerRating}"
+                       class="form-control"
+                       th:disabled="${isReviewed}"/>
+            </div>
+
+            <div class="mb-3">
+                <label>Manager Comment</label>
+                <textarea rows="3"
+                          name="overallManagerComment"
+                          th:text="${appraisal.overallManagerComment}"
+                          th:disabled="${isReviewed}">
+                </textarea>
+            </div>
+
+            <button class="btn btn-success"
+                    th:if="${!isReviewed}">
+                Save Review
+            </button>
+
+            <div th:if="${isReviewed}" class="text-success">
+                ✔ Review Completed
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

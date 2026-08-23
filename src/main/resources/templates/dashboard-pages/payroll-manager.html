@@ -1,0 +1,180 @@
+<!--<style>-->
+
+<!--    .payroll-wrapper{-->
+<!--        max-width:900px;-->
+<!--        margin:20px auto;-->
+<!--    }-->
+
+<!--    .payroll-title{-->
+<!--        font-size:22px;-->
+<!--        font-weight:600;-->
+<!--        margin-bottom:25px;-->
+<!--        color:#1e293b;-->
+<!--    }-->
+
+<!--    .payroll-card{-->
+<!--        border-radius:12px;-->
+<!--        padding:25px;-->
+<!--        background:#ffffff;-->
+<!--        box-shadow:0 4px 14px rgba(0,0,0,.08);-->
+<!--    }-->
+
+<!--</style>-->
+
+<!--<div class="payroll-wrapper">-->
+
+<!--    <div class="payroll-title">-->
+<!--        Team Payroll-->
+<!--    </div>-->
+
+<!--    <div class="payroll-card">-->
+
+<!--        <table class="table table-bordered">-->
+
+<!--            <thead>-->
+
+<!--            <tr>-->
+<!--                <th>Employee</th>-->
+<!--                <th>Month</th>-->
+<!--                <th>Year</th>-->
+<!--                <th>Net Salary</th>-->
+<!--            </tr>-->
+
+<!--            </thead>-->
+
+<!--            <tbody>-->
+
+<!--            <tr th:each="p : ${records}">-->
+<!--                <td th:text="${p.employee.firstName + ' ' + p.employee.lastName}"></td>-->
+<!--                <td th:text="${p.month}"></td>-->
+<!--                <td th:text="${p.year}"></td>-->
+<!--                <td th:text="'₹ ' + ${#numbers.formatDecimal(p.netSalary,1,2)}"></td>-->
+<!--            </tr>-->
+
+<!--            </tbody>-->
+
+<!--        </table>-->
+
+<!--    </div>-->
+
+<!--</div>-->
+
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<style>
+
+    .card{
+        border-radius:10px;
+        box-shadow:0 2px 10px rgba(0,0,0,.08);
+    }
+
+    #teamPayrollTable{
+        border:1px solid #dee2e6;
+        border-radius:8px;
+        overflow:hidden;
+    }
+
+    #teamPayrollTable th{
+        background:#f1f5f9;
+        border-bottom:1px solid #dee2e6;
+    }
+
+    #teamPayrollTable td{
+        border-top:1px solid #dee2e6;
+        padding:12px 16px;
+        vertical-align:middle;
+    }
+
+    #teamPayrollTable th:nth-child(1){ width:220px; }
+    #teamPayrollTable th:nth-child(2){ width:120px; }
+    #teamPayrollTable th:nth-child(3){ width:120px; }
+    #teamPayrollTable th:nth-child(4){ width:160px; }
+
+    .dt-buttons{
+        margin-top:15px;
+        text-align:right;
+    }
+
+</style>
+
+
+<div class="d-flex justify-content-between">
+
+    <h4>Team Payroll</h4>
+
+</div>
+
+
+<div class="card p-3">
+
+    <table id="teamPayrollTable" class="table">
+
+        <thead>
+
+        <tr>
+            <th>Employee</th>
+            <th>Month</th>
+            <th>Year</th>
+            <th>Net Salary</th>
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        <tr th:each="p : ${records}">
+
+            <td th:text="${p.employee.firstName + ' ' + p.employee.lastName}"></td>
+
+            <td th:text="${p.month}"></td>
+
+            <td th:text="${p.year}"></td>
+
+            <td th:text="'₹ ' + ${#numbers.formatDecimal(p.netSalary,1,2)}"></td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+<!--<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>-->
+
+<!--<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>-->
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#teamPayrollTable').DataTable({
+
+            dom: '<"d-flex justify-content-end mb-2"B>frtip',
+
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa fa-file-excel"></i> Export Excel',
+                    className: 'btn btn-success btn-sm',
+                    title: 'Team_Payroll',
+                    exportOptions: {
+                        columns: [0,1,2,3]
+                    }
+                }
+            ]
+
+        });
+
+    });
+
+</script>

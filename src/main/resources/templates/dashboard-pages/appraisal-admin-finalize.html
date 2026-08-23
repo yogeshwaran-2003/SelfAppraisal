@@ -1,0 +1,122 @@
+<style>
+
+    .appraisal-wrapper{
+        max-width:1000px;
+        margin:20px auto;
+    }
+
+    .appraisal-title{
+        font-size:22px;
+        font-weight:600;
+        margin-bottom:25px;
+        color:#1e293b;
+    }
+
+    .appraisal-card{
+        border-radius:12px;
+        padding:25px;
+        background:#ffffff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+    .table thead{
+        background:#f1f5f9;
+    }
+
+    .table th{
+        font-weight:600;
+        color:#334155;
+        vertical-align:middle;
+    }
+
+    .table td{
+        vertical-align:middle;
+    }
+
+    .status-reviewed{
+        background:#facc15;
+        color:#1f2937;
+        padding:4px 10px;
+        border-radius:6px;
+        font-size:12px;
+        font-weight:600;
+    }
+
+    .status-finalized{
+        background:#16a34a;
+        color:white;
+        padding:4px 10px;
+        border-radius:6px;
+        font-size:12px;
+        font-weight:600;
+    }
+
+    .btn-finalize{
+        border-radius:6px;
+        padding:5px 12px;
+        font-size:13px;
+    }
+
+</style>
+
+
+<div class="appraisal-wrapper">
+
+    <div class="appraisal-title">
+        Finalize Appraisals
+    </div>
+
+    <div class="appraisal-card">
+
+        <table class="table table-bordered table-striped">
+
+            <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Manager Rating</th>
+                <th>Status</th>
+                <th width="120">Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="a : ${appraisals}">
+
+                <td th:text="${a.employee.firstName + ' ' + a.employee.lastName}"></td>
+
+                <td th:text="${a.overallManagerRating}"></td>
+
+                <td>
+                    <span th:if="${a.status == 'REVIEWED'}"
+                          class="status-reviewed"
+                          th:text="${a.status}"></span>
+
+                    <span th:if="${a.status == 'FINALIZED'}"
+                          class="status-finalized"
+                          th:text="${a.status}"></span>
+                </td>
+
+                <td>
+
+                    <form th:action="@{/appraisal/admin/finalize/{id}(id=${a.id})}"
+                          method="post"
+                          th:if="${a.status == 'REVIEWED'}">
+
+                        <button class="btn btn-success btn-sm btn-finalize">
+                            Finalize
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

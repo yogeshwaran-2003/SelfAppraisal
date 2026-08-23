@@ -1,0 +1,142 @@
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<style>
+
+    .card{
+        border-radius:10px;
+        box-shadow:0 2px 10px rgba(0,0,0,.08);
+    }
+
+    #payrollTable{
+        border:1px solid #dee2e6;
+        border-radius:8px;
+        overflow:hidden;
+    }
+
+    #payrollTable th{
+        background:#f1f5f9;
+        border-bottom:1px solid #dee2e6;
+    }
+
+    #payrollTable td{
+        border-top:1px solid #dee2e6;
+        padding:12px 16px;
+        vertical-align:middle;
+    }
+
+    #payrollTable th:nth-child(1){ width:200px; }
+    #payrollTable th:nth-child(2){ width:100px; }
+    #payrollTable th:nth-child(3){ width:100px; }
+    #payrollTable th:nth-child(4){ width:150px; }
+    #payrollTable th:nth-child(5){ width:120px; }
+    #payrollTable th:nth-child(6){ width:150px; }
+    #payrollTable th:nth-child(7){ width:120px; }
+
+
+    .dt-buttons{
+        margin-top:15px;
+        text-align:right;
+    }
+
+</style>
+
+
+<div class="d-flex justify-content-between">
+
+    <h4>Payroll History</h4>
+
+</div>
+
+
+<div class="card p-3">
+
+    <table id="payrollTable" class="table">
+
+        <thead>
+
+        <tr>
+            <th>code</th>
+            <th>Employee</th>
+            <th>Month</th>
+            <th>Year</th>
+            <th>Base Salary</th>
+            <th>Net Salary</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        <tr th:each="p : ${records}">
+
+            <td th:text="${p.employee.employeeCode}"></td>
+
+            <td th:text="${p.employee.firstName + ' ' + p.employee.lastName}"></td>
+
+            <td th:text="${p.month}"></td>
+
+            <td th:text="${p.year}"></td>
+
+            <td th:text="${p.baseSalary}"></td>
+
+            <td th:text="'₹ ' + ${#numbers.formatDecimal(p.netSalary,1,2)}"></td>
+
+            <td>
+                <span th:text="${p.status}"
+                      class="fw-semibold text-success">
+                </span>
+            </td>
+
+            <td>
+
+                <button class="btn btn-primary btn-sm"
+                        th:onclick="'window.location.href=\'/payroll/admin/payslip/' + ${p.id} + '\';'">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+    $('#payrollTable').DataTable({
+
+        dom: '<"d-flex justify-content-end mb-2"B>frtip',
+
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel"></i> Export Excel',
+                className: 'btn btn-success btn-sm',
+                title: 'Payroll_History',
+                exportOptions: {
+                    columns: [0,1,2,3,4,5]
+                }
+            }
+        ]
+
+    });
+
+});
+
+</script>

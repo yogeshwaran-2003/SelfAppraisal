@@ -1,0 +1,120 @@
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+
+<style>
+
+    .card{
+     border-radius:10px;
+     box-shadow:0 2px 10px rgba(0,0,0,.08);
+    }
+
+    #managerProjectTable{
+     border:1px solid #dee2e6;
+     border-radius:8px;
+     overflow:hidden;
+    }
+
+    #managerProjectTable th{
+     background:#f1f5f9;
+     border-bottom:1px solid #dee2e6;
+    }
+
+    #managerProjectTable td{
+     border-top:1px solid #dee2e6;
+     padding:12px 16px;
+    }
+
+</style>
+
+
+<h4>My Projects</h4>
+
+
+<div class="card p-3">
+
+<!--    <table id="managerProjectTable" class="table">-->
+
+<!--        <thead>-->
+
+<!--        <tr>-->
+<!--            <th>Project</th>-->
+<!--            <th>Client</th>-->
+<!--            <th>Status</th>-->
+<!--        </tr>-->
+
+<!--        </thead>-->
+
+
+<!--        <tbody>-->
+
+<!--        <tr th:each="p : ${projects}">-->
+
+<!--            <td th:text="${p.projectName}"></td>-->
+
+<!--            <td th:text="${p.clientName}"></td>-->
+
+<!--            <td>-->
+<!--<span th:text="${p.status}"-->
+<!--      class="fw-semibold text-success">-->
+<!--</span>-->
+<!--            </td>-->
+
+<!--        </tr>-->
+
+<!--        </tbody>-->
+
+<!--    </table>-->
+
+    <table id="managerProjectTable" class="table">
+
+        <thead>
+
+        <tr>
+            <th>Project</th>
+            <th>Client</th>
+            <th>Employees</th>
+            <th>Status</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="p : ${projects}">
+
+            <td th:text="${p.projectName}"></td>
+
+            <td th:text="${p.clientName}"></td>
+
+            <td>
+
+<span th:each="pe : ${p.projectEmployees}"
+      th:text="${pe.employee.firstName}"
+      class="badge bg-primary me-1">
+</span>
+
+            </td>
+
+            <td>
+<span th:text="${p.status}"
+      class="fw-semibold text-success">
+</span>
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+</div>
+
+
+<script>
+
+    $(function(){
+
+        $('#managerProjectTable').DataTable();
+
+    });
+
+</script>

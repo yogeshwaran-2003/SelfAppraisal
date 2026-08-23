@@ -1,0 +1,235 @@
+<!--<style>-->
+
+<!--    .attendance-wrapper{-->
+<!--        max-width:900px;-->
+<!--        margin:20px auto;-->
+<!--    }-->
+
+<!--    .attendance-title{-->
+<!--        font-size:22px;-->
+<!--        font-weight:600;-->
+<!--        margin-bottom:25px;-->
+<!--        color:#1e293b;-->
+<!--    }-->
+
+<!--    .attendance-card{-->
+<!--        border-radius:12px;-->
+<!--        padding:25px;-->
+<!--        background:#ffffff;-->
+<!--        box-shadow:0 4px 14px rgba(0,0,0,.08);-->
+<!--    }-->
+
+<!--</style>-->
+
+<!--<div class="attendance-wrapper">-->
+
+<!--    <div class="attendance-title">-->
+<!--        My Attendance Summary-->
+<!--    </div>-->
+
+<!--    <div class="attendance-card">-->
+
+<!--        <form method="get"-->
+<!--              th:action="@{/attendance/employee}"-->
+<!--              class="row g-3 mb-4">-->
+
+<!--            <div class="col-md-4">-->
+<!--                <input type="number"-->
+<!--                       name="month"-->
+<!--                       min="1"-->
+<!--                       max="12"-->
+<!--                       th:value="${month}"-->
+<!--                       class="form-control"-->
+<!--                       placeholder="Month">-->
+<!--            </div>-->
+
+<!--            <div class="col-md-4">-->
+<!--                <input type="number"-->
+<!--                       name="year"-->
+<!--                       th:value="${year}"-->
+<!--                       class="form-control"-->
+<!--                       placeholder="Year">-->
+<!--            </div>-->
+
+<!--            <div class="col-md-4">-->
+<!--                <button class="btn btn-primary w-100">-->
+<!--                    View-->
+<!--                </button>-->
+<!--            </div>-->
+
+<!--        </form>-->
+
+<!--        <table class="table table-bordered">-->
+
+<!--            <tr>-->
+<!--                <th>Present</th>-->
+<!--                <td th:text="${summary.present}"></td>-->
+<!--            </tr>-->
+
+<!--            <tr>-->
+<!--                <th>Absent</th>-->
+<!--                <td th:text="${summary.absent}"></td>-->
+<!--            </tr>-->
+
+<!--            <tr>-->
+<!--                <th>Half Day</th>-->
+<!--                <td th:text="${summary.halfDay}"></td>-->
+<!--            </tr>-->
+
+<!--            <tr>-->
+<!--                <th>Leave</th>-->
+<!--                <td th:text="${summary.leave}"></td>-->
+<!--            </tr>-->
+
+<!--            <tr>-->
+<!--                <th>Payable Days</th>-->
+<!--                <td th:text="${summary.payableDays}"></td>-->
+<!--            </tr>-->
+
+<!--        </table>-->
+
+<!--    </div>-->
+
+<!--</div>-->
+
+<style>
+
+    .attendance-wrapper{
+        max-width:1000px;
+        margin:20px auto;
+    }
+
+    .attendance-title{
+        font-size:22px;
+        font-weight:600;
+        margin-bottom:25px;
+        color:#1e293b;
+    }
+
+    .attendance-card{
+        border-radius:12px;
+        padding:25px;
+        background:#ffffff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+    .summary-table th{
+        width:200px;
+        background:#f8fafc;
+    }
+
+</style>
+
+<div class="attendance-wrapper">
+
+    <div class="attendance-title">
+        My Attendance Summary
+    </div>
+
+    <div class="attendance-card">
+
+        <!-- ================= MONTH SELECTOR ================= -->
+        <form method="get"
+              th:action="@{/attendance/employee}"
+              class="row g-3 mb-4">
+
+            <div class="col-md-4">
+                <input type="number"
+                       name="month"
+                       min="1"
+                       max="12"
+                       th:value="${month}"
+                       class="form-control"
+                       placeholder="Month">
+            </div>
+
+            <div class="col-md-4">
+                <input type="number"
+                       name="year"
+                       th:value="${year}"
+                       class="form-control"
+                       placeholder="Year">
+            </div>
+
+            <div class="col-md-4">
+                <button class="btn btn-primary w-100">
+                    View
+                </button>
+            </div>
+
+        </form>
+
+        <!-- ================= SUMMARY SECTION ================= -->
+        <h5 class="mb-3">Monthly Summary</h5>
+
+        <table class="table table-bordered summary-table">
+
+            <tr>
+                <th>Present</th>
+                <td th:text="${summary.present}"></td>
+            </tr>
+
+            <tr>
+                <th>Absent</th>
+                <td th:text="${summary.absent}"></td>
+            </tr>
+
+            <tr>
+                <th>Half Day</th>
+                <td th:text="${summary.halfDay}"></td>
+            </tr>
+
+            <tr>
+                <th>Leave</th>
+                <td th:text="${summary.leave}"></td>
+            </tr>
+
+            <tr>
+                <th>Holiday</th>
+                <td th:text="${summary.holiday}"></td>
+            </tr>
+
+            <tr class="table-success">
+                <th>Payable Days</th>
+                <td th:text="${summary.payableDays}"></td>
+            </tr>
+
+        </table>
+
+        <!-- ================= DATE-WISE DETAILS ================= -->
+
+        <hr class="my-4"/>
+
+        <h5 class="mb-3">Date-wise Details</h5>
+
+        <table class="table table-bordered">
+
+            <thead class="table-dark">
+            <tr>
+                <th>Date</th>
+                <th>Day</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="att : ${records}">
+                <td th:text="${att.date}"></td>
+                <td th:text="${#temporals.format(att.date, 'EEE')}"></td>
+                <td th:text="${att.status}"></td>
+            </tr>
+
+            <tr th:if="${records == null || records.isEmpty()}">
+                <td colspan="3" class="text-center text-muted">
+                    No attendance records found for selected month.
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

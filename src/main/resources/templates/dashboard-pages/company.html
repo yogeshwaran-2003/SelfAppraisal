@@ -1,0 +1,59 @@
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    #companyTable th{
+        background:#f1f5f9;
+    }
+</style>
+
+<div class="d-flex justify-content-between">
+    <h4>Company</h4>
+</div>
+
+<div class="card p-3">
+
+    <table id="companyTable" class="table">
+
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="c : ${companies}">
+            <td th:text="${c.companyCode}"></td>
+            <td th:text="${c.companyName}"></td>
+            <td>
+                <div class="d-flex gap-2">
+
+                    <!-- View -->
+                    <button class="btn btn-primary btn-sm"
+                            th:onclick="'window.location.href=\'/company/view/' + ${c.companyId} + '\';'">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+
+                    <!-- Edit -->
+                    <button class="btn btn-warning btn-sm"
+                            th:onclick="'window.location.href=\'/company/edit/' + ${c.companyId} + '\';'">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<script>
+    $(function() {
+        $('#companyTable').DataTable();
+    });
+</script>

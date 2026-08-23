@@ -1,0 +1,141 @@
+<style>
+
+    .payroll-wrapper{
+        max-width:1000px;
+        margin:20px auto;
+    }
+
+    .payroll-title{
+        font-size:22px;
+        font-weight:600;
+        margin-bottom:25px;
+        color:#1e293b;
+    }
+
+    .payroll-card{
+        border-radius:12px;
+        padding:25px;
+        background:#ffffff;
+        box-shadow:0 4px 14px rgba(0,0,0,.08);
+        transition:transform .2s ease, box-shadow .2s ease;
+        text-align:center;
+    }
+
+    .payroll-card:hover{
+        transform:translateY(-5px);
+        box-shadow:0 6px 20px rgba(0,0,0,.12);
+    }
+
+    .payroll-card h5{
+        margin-bottom:15px;
+        font-weight:600;
+    }
+
+    .payroll-card p{
+        font-size:14px;
+        color:#64748b;
+        margin-bottom:20px;
+    }
+
+    .payroll-btn{
+        width:100%;
+        border-radius:8px;
+        padding:8px 0;
+    }
+
+</style>
+
+
+<div class="payroll-wrapper">
+
+    <div class="payroll-title">
+        Payroll Module
+    </div>
+
+    <div class="row g-4">
+
+        <!-- ADMIN -->
+        <div class="col-md-4"
+             th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+
+            <div class="payroll-card">
+
+                <h5>Process Payroll</h5>
+
+                <p>
+                    Generate and manage monthly payroll for employees.
+                </p>
+
+                <a th:href="@{/payroll/admin}"
+                   class="btn btn-primary payroll-btn">
+                    Open
+                </a>
+
+            </div>
+        </div>
+
+        <!-- ADMIN PAYROLL HISTORY -->
+        <div class="col-md-4"
+             th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+
+            <div class="payroll-card">
+
+                <h5>Payroll History</h5>
+
+                <p>
+                    View previously generated payroll records and salary details.
+                </p>
+
+                <a th:href="@{/payroll/admin/history}"
+                   class="btn btn-info payroll-btn">
+                    View History
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- MANAGER -->
+        <div class="col-md-4"
+             th:if="${#authorization.expression('hasRole(''MANAGER'')')}">
+
+            <div class="payroll-card">
+
+                <h5>Team Payroll</h5>
+
+                <p>
+                    View payroll information for your reporting employees.
+                </p>
+
+                <a th:href="@{/payroll/manager}"
+                   class="btn btn-warning payroll-btn">
+                    View
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- EMPLOYEE -->
+        <div class="col-md-4"
+             th:if="${#authorization.expression('hasRole(''EMPLOYEE'')')}">
+
+            <div class="payroll-card">
+
+                <h5>My Payslips</h5>
+
+                <p>
+                    View your salary details and monthly payslips.
+                </p>
+
+                <a th:href="@{/payroll/employee}"
+                   class="btn btn-success payroll-btn">
+                    Open
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

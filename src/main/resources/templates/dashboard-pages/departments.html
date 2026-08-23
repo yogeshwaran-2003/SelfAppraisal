@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    .card{
+     border-radius:10px;
+     box-shadow:0 2px 10px rgba(0,0,0,.08);
+    }
+
+    #deptTable{
+     border:1px solid #dee2e6;
+     border-radius:8px;
+     overflow:hidden;
+    }
+
+    #deptTable th{
+     background:#f1f5f9;
+     border-bottom:1px solid #dee2e6;
+    }
+
+    #deptTable td{
+     border-top:1px solid #dee2e6;
+     padding:12px 16px;
+     vertical-align: middle;
+    }
+
+    #deptTable th:nth-child(1){ width:120px; }
+    #deptTable th:nth-child(2){ width:200px; }
+    #deptTable th:nth-child(3){ width:400px; }
+    #deptTable th:nth-child(4){ width:220px; }
+</style>
+
+<div class="d-flex justify-content-between">
+    <h4>Departments</h4>
+
+    <button class="btn btn-primary mb-3" onclick="loadDeptCreate()">
+        Create
+    </button>
+</div>
+
+
+<div class="card p-3">
+
+    <table id="deptTable" class="table">
+
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="d:${departments}">
+            <td th:text="${d.departmentCode}"></td>
+            <td th:text="${d.departmentName}"></td>
+            <td th:text="${d.description}"></td>
+            <td>
+                <span th:text="${d.active} ? 'Active' : 'Inactive'"
+                th:classappend="${d.active} ? 'text-success fw-semibold' : 'text-danger fw-semibold'">
+                </span>
+            </td>
+
+            <td>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary btn-sm"
+                            th:onclick="'window.location.href=\'/departments/view/' + ${d.departmentId} + '\';'"
+                            title="View">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+
+
+                    <!-- Edit -->
+                    <button class="btn btn-warning btn-sm"
+                            th:onclick="'editDept('+${d.departmentId}+')'">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <!-- Toggle -->
+                    <button th:if="${d.active}"
+                            class="btn btn-danger btn-sm"
+                            th:onclick="'window.location.href=\'/departments/toggle/' + ${d.departmentId} + '\';'"
+                            title="Deactivate">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+
+                    <button th:if="${!d.active}"
+                            class="btn btn-success btn-sm"
+                            th:onclick="'window.location.href=\'/departments/toggle/' + ${d.departmentId} + '\';'"
+                            title="Activate">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+
+<!--    $(function() {-->
+<!--         $('#deptTable').DataTable();-->
+<!--     });-->
+
+$(function () {
+
+    $('#deptTable').DataTable({
+
+        dom: 'frtipB',
+
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel"></i> Export Excel',
+                className: 'btn btn-success mt-3',
+                title: 'Department_List',
+                exportOptions: {
+                    columns: [0,1,2,3] // ignore Actions column
+                }
+            }
+        ]
+
+    });
+
+});
+
+
+ function loadDeptCreate(){
+     let url = "/departments/create";
+     window.location.href = url;
+ }
+
+    function deleteDept(id){
+         if(confirm("Delete this department?")){
+             window.location.href =  `/departments/delete/${id}`;
+         }
+    }
+
+     function viewDept(id){
+     let url = "/departments/view/" + id;
+     window.location.href = url;
+
+ }
+
+ function editDept(id){
+     let url = "/departments/edit/" + id;
+     window.location.href = url;
+ }
+
+
+</script>
+<script>
+    function toggleDept(id){
+        if(confirm("Change department status?")){
+            loadPage("/dashboard/departments/toggle/" + id);
+        }
+    }
+</script>
