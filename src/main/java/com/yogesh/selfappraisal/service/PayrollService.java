@@ -164,11 +164,11 @@ public class PayrollService {
         return payrollRepository.findByMonthAndYear(month, year);
     }
 
-
-    pu
     // ============================
     // EMPLOYEE PAYSLIP
-    // ============================blic List<PayrollTransaction> getEmployeePayroll(Employee emp) {
+    // ============================
+
+    public List<PayrollTransaction> getEmployeePayroll(Employee emp) {
 
         return payrollRepository
                 .findByEmployeeOrderByYearDescMonthDesc(emp);
